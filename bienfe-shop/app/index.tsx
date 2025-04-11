@@ -12,12 +12,12 @@ import { Text } from "react-native-paper";
 
 const Login = () => {
   const[loading,setloading]=useState(false)
-  /*
+  
   const [data, setData] = useState<userToSend>({
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
+  
   const [error, setError] = useState<null | string>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const { https } = useHttps();
@@ -29,15 +29,10 @@ const Login = () => {
       [name]: value,
     });
   };
-  */
-  const handleSubmit = async () => {
-    
-    router.push("/tabs")
-  
-    /*
+  const handleSubmit =async( ) => {
     if(data.email.trim() && data.password.trim()) {
       try {
-        setLoading(true);
+        setloading(true);
         setError(null);
         let toSend: userToSend = data;
         toSend.email = toSend.email.trim();
@@ -48,11 +43,11 @@ const Login = () => {
             ...res.user,
             token: res.token
           })
-         */
-         // router.replace('/tabs')
+        
+          router.replace('/tabs')
          
         }
-        /*
+        
       } catch (error: any) {
         setError(error);
         if (error.response) {
@@ -66,7 +61,7 @@ const Login = () => {
           console.log("Error message:", error.response);
         }
       } finally {
-        setLoading(false);
+        setloading(false);
       }
     }
     else {
@@ -74,7 +69,7 @@ const Login = () => {
       setErrorMessage("Vous devez completer les champs");
     }
   };
-*/
+
   return (
     <Layout isScroll={true}>
       <View style={styles.container}>
@@ -96,14 +91,14 @@ const Login = () => {
             <CustomInput
               name="email"
               label={" Email"}
-             // handleChange={handleChange}
+              handleChange={handleChange}
             />
           </View>
           <View style={{ marginTop: 10 }}>
             <CustomInput
               name="password"
               label={" Mots de passe"}
-              //handleChange={handleChange}
+              handleChange={handleChange}
             />
           </View>
           </View>
@@ -120,7 +115,7 @@ const Login = () => {
     </Layout>
     
   );
-};
+  };
 const styles = StyleSheet.create({
   container: {
     flex: 1,

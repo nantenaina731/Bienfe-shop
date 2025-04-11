@@ -7,7 +7,7 @@ interface props {
   label: string;
   name: string;
   value?: string | undefined;
- // handleChange: any;
+ handleChange: any;
   editable?: boolean;
   height?: number;
   fontSize?: number;
