@@ -19,7 +19,7 @@ const CustomInput = ({
   label,
   name = "email",
   value = undefined,
- // handleChange,
+  handleChange,
   editable = true,
   height,
   fontSize,
@@ -64,7 +64,7 @@ const CustomInput = ({
       underlineColor="transparent"
       onFocus={() => setIsFocus(true)}
       onBlur={() => setIsFocus(false)}
-     // onChangeText={(text) => handleChange(name, text)}
+      onChangeText={(text) => handleChange(name, text)}
     />
   );
 };

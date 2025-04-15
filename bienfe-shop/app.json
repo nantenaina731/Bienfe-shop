@@ -1,14 +1,13 @@
 {
   "expo": {
     "name": "Bienfe-shop",
-    "slug": "Bienfe-shop",
+    "slug": "gestionvente",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "ios": {
       "supportsTablet": true
     },
@@ -32,7 +31,7 @@
           "image": "./assets/images/splash.png",
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
-            }
+        }
       ]
     ],
     "experiments": {
@@ -45,6 +44,7 @@
       "eas": {
         "projectId": "3457ad05-14b4-4eaf-ac79-7180be5d862c"
       }
-    }
+    },
+    "owner": "te33"
   }
 }

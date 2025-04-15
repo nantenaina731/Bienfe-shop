@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addToken, removeToken } from "../store/slice/userSlice";
+//import { addToken, removeToken } from "../store/slice/userSlice";
 
 const useToken = () => {
   const user = useSelector((state: any) => state.user.value);
@@ -10,11 +10,11 @@ const useToken = () => {
   };
 
   const setAuthToken = (token: any) => {
-    dispatch(addToken(token));
+   // dispatch(addToken(token));
   };
 
   const deleteToken = () => {
-    dispatch(removeToken());
+   // dispatch(removeToken());
   };
 
   return { token: getAuthToken(), setAuthToken, deleteToken };
