@@ -44,8 +44,8 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
       return;
     }
     if (
-      data.name.trim() != "" &&
-      data.last_name.trim() != "" &&
+      //data.name.trim() != "" &&
+     // data.last_name.trim() != "" &&
       data.email.trim() != "" &&
       data.password.trim() != ""
     ) {
@@ -88,7 +88,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         contentContainerStyle={styles.container}
       >
         <Text
-          style={{ color: primary, fontWeight: "bold", textAlign: "center" }}
+          style={{ color:  "#64B244" , fontWeight: "bold", textAlign: "center" }}
           variant="titleMedium"
         >
           Ajouter un administrateur
@@ -101,7 +101,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="name"
-          label={"Nom..."}
+          label="Nom..."
           value={data.name}
           handleChange={handleChange}
           height={45}
@@ -117,7 +117,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         <CustomInput
           name="last_name"
           value={data.last_name}
-          type="text"
           label={"Prenom..."}
           handleChange={handleChange}
           height={45}
@@ -133,8 +132,8 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         <CustomInput
           name="email"
           value={data.email}
-          type="text"
-          label={"Prenom..."}
+        
+          label={"Email..."}
           handleChange={handleChange}
           height={45}
           fontSize={14}
@@ -148,7 +147,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="password"
-          type="text"
+        
           label={"Mot de passe"}
           handleChange={handleChange}
           height={45}
@@ -163,7 +162,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="confirm_password"
-          type="text"
           label={"Confirmation"}
           handleChange={handleChange}
           height={45}

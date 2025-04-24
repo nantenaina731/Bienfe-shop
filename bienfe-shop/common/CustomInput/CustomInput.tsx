@@ -11,7 +11,7 @@ interface props {
   editable?: boolean;
   height?: number;
   fontSize?: number;
-  type?: any;
+  type?: KeyboardTypeOptions;
   mt?: number;
 }
 
@@ -23,7 +23,7 @@ const CustomInput = ({
   editable = true,
   height,
   fontSize,
-  type = "text",
+  type = "default",
   mt
 }: props) => {
   const theme = useTheme();
@@ -40,8 +40,8 @@ const CustomInput = ({
       marginBottom: 10,
       marginTop: mt ?? 10,
       height: height ?? 55,
-      color: "#98A0A3",
-    
+      color: "#000",
+      paddingHorizontal: 10,
     },
   });
   return (

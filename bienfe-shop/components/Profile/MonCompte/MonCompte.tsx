@@ -130,7 +130,7 @@ const MonCompte = ({ setSuccess }: props) => {
               <CustomInput
                 name="last_name"
                 value={data.last_name}
-                type="text"
+               // type="text"
                 label={"Prenom..."}
                 handleChange={handleChange}
                 height={45}
@@ -149,7 +149,7 @@ const MonCompte = ({ setSuccess }: props) => {
               <CustomInput
                 name="email"
                 value={data.email}
-                type="text"
+               // type="text"
                 editable={false}
                 label={"Prenom..."}
                 handleChange={handleChange}
@@ -168,7 +168,7 @@ const MonCompte = ({ setSuccess }: props) => {
               </Text>
               <CustomInput
                 name="password"
-                type="text"
+                //type="text"
                 label={"Mot de passe"}
                 handleChange={handleChange}
                 height={45}
@@ -186,7 +186,7 @@ const MonCompte = ({ setSuccess }: props) => {
               </Text>
               <CustomInput
                 name="confirm_password"
-                type="text"
+                //type="text"
                 label={"Confirmation"}
                 handleChange={handleChange}
                 height={45}
