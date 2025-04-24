@@ -31,7 +31,7 @@ const Users = ({ setSuccess }: props) => {
     try {
       setLoading(true);
       let response = await https.post(`/users/filter-by-type`, {
-        type: "employe",
+        type: "vendeur",
       });
       if (response) {
         setData(response.data);

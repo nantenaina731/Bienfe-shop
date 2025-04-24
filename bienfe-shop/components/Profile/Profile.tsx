@@ -7,28 +7,37 @@ import { profilePage } from "@/types/types";
 import { Text, useTheme } from "react-native-paper";
 import MonCompte from "./MonCompte/MonCompte";
 import SuccessSnackBar from "@/common/SuccessSnackBar/SuccessSnackBar";
-//import Users from "./Users/Users";
+import Users from "./Users/Users";
 import Admin from "./Admin/Admin";
 import useToken from "@/services/useToken";
+import { useLayoutEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+
 
 const Profile = () => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
   const theme = useTheme();
   const { primary } = theme.colors;
   const [activePage, setActivePage] = useState<profilePage>("Mon compte");
   const [success, setSuccess] = useState<boolean>(false);
   const { token } = useToken();
   const isAdmin = token.type == "admin";
+  console.log("Token:", token);
 
-  //const displayPage = () => {
-    //switch (activePage) {
-     // case "Employés":
-       // return <Users setSuccess={setSuccess} />;
-      //case "Administrateurs":
-     //   return <Admin setSuccess={setSuccess} />;
-      //default:
-       // return <MonCompte setSuccess={setSuccess} />;
-   // }
-  //};
+  const displayPage = () => {
+    switch (activePage) {
+      case "Vendeur":
+        return <Users setSuccess={setSuccess} />;
+      case "Administrateurs":
+        return <Admin setSuccess={setSuccess} />;
+      default:
+        return <MonCompte setSuccess={setSuccess} />;
+    }
+  };
 
   return (
     <>
@@ -48,6 +57,7 @@ const Profile = () => {
           {isAdmin && (
             <Menus activePage={activePage} setActivePage={setActivePage} />
           )}
+          {displayPage()}
           
         </View>
       </Layout>

@@ -5,6 +5,6 @@ export interface userToSend {
 }
 
 
-export type profilePage = "Mon compte" | "Employés" | "Administrateurs";
+export type profilePage = "Mon compte" | "Vendeur" | "Administrateurs";
 
 export type productPage = "Vente de produit" | "Gestion de produit";

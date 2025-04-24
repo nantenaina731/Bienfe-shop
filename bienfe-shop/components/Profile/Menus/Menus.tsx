@@ -15,7 +15,7 @@ interface menuPops {
   setActivePage: Dispatch<SetStateAction<profilePage>>;
 }
 
-const pages = ["Mon compte", "Employés", "Administrateurs"];
+const pages = ["Mon compte", "Vendeur", "Administrateurs"];
 
 const Menus = ({ activePage, setActivePage }: menuPops) => {
   const theme = useTheme();
