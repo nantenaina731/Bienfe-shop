@@ -43,15 +43,15 @@ const AppHeader = ({
     router.push("/profile");
   };
 
-  const goUsers = () => {
-    router.push("/users");
-  };
+//  const goUsers = () => {
+  //  router.push("/users");
+ // };
 
   return (
     <Appbar.Header style={styles.header}>
       {showBackBtn && <Appbar.BackAction color={"#000"} onPress={goBack} />}
       <Image
-        source={require("@/assets/images/logo-black.png")}
+        source={require("@/assets/images/logo.png")}
         style={styles.image}
       />
       {/* <Appbar.Content color={"white"}  title="Title" /> */}
@@ -64,7 +64,7 @@ const AppHeader = ({
             icon={() => (
               <FontAwesome5 name="users" size={22} color={"#000"} />
             )}
-            onPress={goUsers}
+           // onPress={goUsers}
           />
           <Appbar.Action
             color={"#000"}

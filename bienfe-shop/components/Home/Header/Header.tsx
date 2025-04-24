@@ -1,8 +1,10 @@
 import { StyleSheet, View, Image } from "react-native";
 import { IconButton, Text } from "react-native-paper";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-
-
+import { router } from "expo-router";
+const goProfile = () => {
+  router.push("/profile");
+};
 const Header = () => {
   return (
     <View style={styles.container}>
@@ -18,7 +20,7 @@ const Header = () => {
             )}
             iconColor={"white"}
             size={20}
-           // onPress={goProfile}
+            onPress={goProfile}
           />
       </View>
     </View>
