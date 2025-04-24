@@ -50,7 +50,7 @@ const Profile = () => {
         >
           <Text style={styles.textLabel} variant="titleLarge">
             Gestion de{" "}
-            <Text style={{ color: primary }} variant="titleLarge">
+            <Text style={{ color:"#64B244" }} variant="titleLarge">
               compte
             </Text>
           </Text>

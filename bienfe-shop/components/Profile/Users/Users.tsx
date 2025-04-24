@@ -123,7 +123,7 @@ const createStyles = (theme: any) =>
       height: 30,
     },
     add: {
-      backgroundColor: theme.colors.primary,
+      backgroundColor:  "#64B244" ,
       padding: 5,
       borderRadius: 3,
     },

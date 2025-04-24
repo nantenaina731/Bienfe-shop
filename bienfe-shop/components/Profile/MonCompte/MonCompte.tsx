@@ -142,7 +142,7 @@ const MonCompte = ({ setSuccess }: props) => {
                 variant="titleMedium"
               >
                 Email{" "}
-                <Text style={{ color: primary, fontSize: 13 }}>
+                <Text style={{ color: "#64B244" , fontSize: 13 }}>
                   (non modifiable)
                 </Text>
               </Text>
@@ -162,7 +162,7 @@ const MonCompte = ({ setSuccess }: props) => {
                 variant="titleMedium"
               >
                 Nouveau mot de passe{" "}
-                <Text style={{ color: primary, fontSize: 13 }}>
+                <Text style={{ color:  "#64B244" , fontSize: 13 }}>
                   (non obligatoire)
                 </Text>
               </Text>
@@ -180,7 +180,7 @@ const MonCompte = ({ setSuccess }: props) => {
                 variant="titleMedium"
               >
                 Confirmation{" "}
-                <Text style={{ color: primary, fontSize: 13 }}>
+                <Text style={{ color:  "#64B244" , fontSize: 13 }}>
                   (non obligatoire)
                 </Text>
               </Text>
