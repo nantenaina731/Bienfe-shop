@@ -26,7 +26,6 @@ const Profile = () => {
   const [success, setSuccess] = useState<boolean>(false);
   const { token } = useToken();
   const isAdmin = token.type == "admin";
-  console.log("Token:", token);
 
   const displayPage = () => {
     switch (activePage) {
