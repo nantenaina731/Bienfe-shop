@@ -3,13 +3,43 @@ import CustomInput from "@/common/CustomInput/CustomInput";
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { Button, Text, useTheme } from "react-native-paper";
-//import * as ImagePicker from "expo-image-picker";
-//import { Image } from "expo-image";
+import * as ImagePicker from "expo-image-picker";
+import { Image } from "expo-image";
 import { useFocusEffect } from "expo-router";
-const CreateShop=()=>{
+interface props {
+  fileData: any;
+  setFileData: any;
+}
+
+const CreateShop=( {fileData,setFileData}:props)=>{
 const handleValidate=()=>{
     console.log('click')
 }
+const handleTakePhoto = async () => {
+  const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+  if (permissionResult.granted === false) {
+    Alert.alert("Permission pour accéder à l'appareil photo a été refusée !");
+    return;
+  }
+
+  let result : any = await ImagePicker.launchCameraAsync({
+    allowsEditing: true,
+    quality: 0.7
+  });
+
+  if (!result.cancelled) {
+    let file = result.assets[0];
+    const fileToUpload = {
+      uri: file.uri,
+      name: Date.now().toString() + ".jpeg",
+      type: file.mimeType || "application/octet-stream",
+    };
+    setFileData(fileToUpload);
+    // setVisible(false)
+  }
+};
+
 return(
 <View style={styles.container}>
       <View>
@@ -31,16 +61,31 @@ return(
           fontSize={14}
         />
       </View>
+      <View style={{ marginTop: 15, display: "flex" }}>
+          {fileData && (
+            <Image
+              source={{ uri: fileData.uri }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 5,
+                marginBottom: 5
+              }}
+            />
+          )}
+         
+        
       <Button
-          //  onPress={handleTakePhoto}
+           onPress={handleTakePhoto}
             uppercase={false}
             mode="outlined"
             style={{borderRadius: 10,borderColor:"#64B244",}}
             textColor="#64B244"
+            
           >
             Choisir logo
           </Button>
-
+          </View>
       <View style={{ marginTop: 15 }}>
       
             <View style={{ marginTop: 15 }}>
