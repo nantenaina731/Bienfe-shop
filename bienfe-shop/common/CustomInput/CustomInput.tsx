@@ -7,11 +7,11 @@ interface props {
   label: string;
   name: string;
   value?: string | undefined;
- // handleChange: any;
+ handleChange: any;
   editable?: boolean;
   height?: number;
   fontSize?: number;
-  type?: any;
+  type?: KeyboardTypeOptions;
   mt?: number;
 }
 
@@ -19,11 +19,11 @@ const CustomInput = ({
   label,
   name = "email",
   value = undefined,
- // handleChange,
+  handleChange,
   editable = true,
   height,
   fontSize,
-  type = "text",
+  type = "default",
   mt
 }: props) => {
   const theme = useTheme();
@@ -40,8 +40,8 @@ const CustomInput = ({
       marginBottom: 10,
       marginTop: mt ?? 10,
       height: height ?? 55,
-      color: "#98A0A3",
-    
+      color: "#000",
+      paddingHorizontal: 10,
     },
   });
   return (
@@ -64,7 +64,7 @@ const CustomInput = ({
       underlineColor="transparent"
       onFocus={() => setIsFocus(true)}
       onBlur={() => setIsFocus(false)}
-     // onChangeText={(text) => handleChange(name, text)}
+      onChangeText={(text) => handleChange(name, text)}
     />
   );
 };

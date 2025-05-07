@@ -25,7 +25,7 @@ return(
         <CustomInput
          name="nom"
           label={"Nom du boutique"}
-         // handleChange={handleChange}
+//          handleChange={handleChange}
           //value={lavageInfo.carMatricul}
           height={45}
           fontSize={14}

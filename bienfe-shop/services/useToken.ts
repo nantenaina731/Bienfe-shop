@@ -9,8 +9,9 @@ const useToken = () => {
     return user;
   };
 
+  
   const setAuthToken = (token: any) => {
-    dispatch(addToken(token));
+   dispatch(addToken(token));
   };
 
   const deleteToken = () => {
