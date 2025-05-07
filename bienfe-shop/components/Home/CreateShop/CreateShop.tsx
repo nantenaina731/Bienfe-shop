@@ -16,19 +16,20 @@ const handleValidate=()=>{
     console.log('click')
 }
 const handleTakePhoto = async () => {
-  const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
   if (permissionResult.granted === false) {
-    Alert.alert("Permission pour accéder à l'appareil photo a été refusée !");
+    Alert.alert("Permission pour accéder à la galerie a été refusée !");
     return;
   }
 
-  let result : any = await ImagePicker.launchCameraAsync({
+  let result: any = await ImagePicker.launchImageLibraryAsync({
     allowsEditing: true,
-    quality: 0.7
+    quality: 0.7,
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
   });
 
-  if (!result.cancelled) {
+  if (!result.canceled) {
     let file = result.assets[0];
     const fileToUpload = {
       uri: file.uri,
@@ -39,7 +40,6 @@ const handleTakePhoto = async () => {
     // setVisible(false)
   }
 };
-
 return(
 <View style={styles.container}>
       <View>
