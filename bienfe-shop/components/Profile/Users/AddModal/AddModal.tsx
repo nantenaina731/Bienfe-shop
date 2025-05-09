@@ -49,8 +49,8 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
       data.name.trim() != "" &&
       data.last_name.trim() != "" &&
       data.email.trim() != "" &&
-      data.password.trim() != "" &&
-      data.shop_name.trim() != "" 
+      data.password.trim() != "" 
+     // data.shop_name.trim() != "" 
 
     ) {
       try {
@@ -133,9 +133,9 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           Vendeur a
         </Text>
         <CustomInput
-          name="last_name"
+          name="shop_name"
           value={data.shop_name}
-          label={"Prenom..."}
+          label={"Vendeur a..."}
           handleChange={handleChange}
           height={45}
           fontSize={14}

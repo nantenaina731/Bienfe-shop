@@ -72,6 +72,7 @@ const Users = ({ setSuccess }: props) => {
         <DataTable.Header>
           <DataTable.Title>Nom</DataTable.Title>
           <DataTable.Title>Créer le</DataTable.Title>
+          <DataTable.Title>vendeur a</DataTable.Title>
         </DataTable.Header>
         {loading && <Loading />}
         {!loading && data.length == 0 && (
@@ -87,6 +88,7 @@ const Users = ({ setSuccess }: props) => {
                 {item.name + " " + item.last_name}
               </DataTable.Cell>
               <DataTable.Cell>{formatDateMinim(item.createdAt)}</DataTable.Cell>
+              <DataTable.Cell>{item.shop_name}</DataTable.Cell>
             </DataTable.Row>
           ))}
       </DataTable>

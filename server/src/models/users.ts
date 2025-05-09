@@ -41,6 +41,9 @@ const model = {
                     {
                         last_name: { contains: query }
                     },
+                    {
+                        shop_name: { contains: query }
+                    },
                 ]
             }
         })
@@ -74,26 +77,28 @@ const model = {
 
         return result
     },
-    update:  async (name:string, last_name:string, password:string, id:number) => {
+    update:  async (name:string, last_name:string, password:string, id:number,shop_name:string) => {
 
         const result = await prisma.users.update({
             where: { id: Number(id) },
             data: {
                 name,
                 last_name,
-                password
+                password,
+                shop_name
             },
         })
 
         return result
     },
-    updateNoPass: async (name:string, last_name:string, id:number) => {
+    updateNoPass: async (name:string, last_name:string, id:number,shop_name:string) => {
 
         const result = await prisma.users.update({
             where: { id: Number(id) },
             data: {
                 name,
-                last_name
+                last_name,
+                shop_name
             },
         })
 

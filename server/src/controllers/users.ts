@@ -147,7 +147,7 @@ const controller = {
         }
     },
     update: async (req: Request, res: Response) => {
-        let { name, last_name, password } = req.body
+        let { shop_name, name, last_name, password } = req.body
         let id = parseInt(req.body.id)
         try { 
             let saltRounds = 10
@@ -156,7 +156,7 @@ const controller = {
                     res.status(403).send("Registration failed")
                 }
                 else {
-                    let data = await model.update(name, last_name, hash, id)
+                    let data = await model.update(shop_name, name, last_name, hash,password)
                     res.status(200).send(data)
                 }
             })
@@ -167,10 +167,10 @@ const controller = {
         }
     },
     updateNoPass: async (req: Request, res: Response) => {
-        let { name, last_name } = req.body
+        let { name, last_name,shop_name } = req.body
         let id = parseInt(req.body.id)
         try { 
-            let data = await model.updateNoPass(name, last_name, id)
+            let data = await model.updateNoPass(name, last_name, id,shop_name)
             res.status(200).send(data)
         }
         catch (error: any) {
