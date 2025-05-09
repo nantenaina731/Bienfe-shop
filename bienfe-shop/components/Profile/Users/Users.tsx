@@ -62,7 +62,7 @@ const Users = ({ setSuccess }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Liste des employés
+          Liste des vendeurs
         </Text>
         <Pressable style={styles.add} onPress={() => setAddModal(true)}>
           <AntDesign name="adduser" size={20} color={"white"} />

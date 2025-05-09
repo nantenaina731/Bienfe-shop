@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  
 }
 
 datasource db {
@@ -20,7 +21,7 @@ model Users {
   email      String       @unique
   password   String?
   type       UserType     @default(vendeur)
-  
+  shop_name  String?    @db.VarChar(255) // Stocker le nom à part aussi
 }
 
 enum UserType {
@@ -28,3 +29,10 @@ enum UserType {
   vendeur
   gestionnaire
 }
+
+model Shop {
+  id     Int    @id @default(autoincrement())
+  name   String
+  logo   String?
+}
+

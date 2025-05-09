@@ -40,7 +40,7 @@ const model = {
                     },
                     {
                         last_name: { contains: query }
-                    }
+                    },
                 ]
             }
         })
@@ -59,7 +59,7 @@ const model = {
 
         return result
     },
-    create: async (name:string, last_name:string, email:string, type: UserType | undefined, password:string) => {
+    create: async (name:string, last_name:string, email:string, type: UserType,shop_name:string | undefined, password:string) => {
 
         const result = await prisma.users.create({
             data: {
@@ -67,7 +67,8 @@ const model = {
                 last_name,
                 email, 
                 password,
-                type
+                type,
+                shop_name
               },
         })
 

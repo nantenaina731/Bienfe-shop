@@ -113,7 +113,7 @@ const controller = {
         }
     },
     create: async (req: Request, res: Response) => {
-        let { name, last_name, email, password, type } = req.body
+        let { name, last_name, email, password, type ,shop_name} = req.body
 
         try {
             let find = await model.getByEmail(email)
@@ -127,7 +127,7 @@ const controller = {
                         res.status(403).send("Registration failed")
                     }
                     else {
-                        let user = await model.create(name, last_name, email, type, hash)
+                        let user = await model.create(shop_name,name, last_name, email, type, hash)
                         if(user) {
                             let token = generateToken(user.id, user.email)
                             let response  = {

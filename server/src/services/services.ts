@@ -28,7 +28,7 @@ const uploadFile = (chemin: any, fichier: any, add_name: any) => {
 
     let fichier_name = fichier.name.split(".");
     let ext = fichier_name[fichier_name.length - 1];
-    nom_img = add_name + "_ninilavage_" + current_time + String(Math.random()) + "." + ext;
+    nom_img = add_name + "_bienfeshop_" + current_time + String(Math.random()) + "." + ext;
     uploadPath = chemin + nom_img;
 
     fichier.mv(uploadPath, function (err: any) {
