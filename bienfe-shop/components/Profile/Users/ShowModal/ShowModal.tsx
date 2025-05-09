@@ -102,6 +102,17 @@ const ShowModal = ({
               </Text>
             </Text>
             <View style={styles.hr}></View>
+            <Text
+              style={{ color: "#000", fontWeight: "bold" }}
+              variant="titleMedium"
+            >
+              vendeur a :{" "}
+              <Text variant="titleMedium">
+                {" "}
+                {formatDate(userSelected.shop_name)}
+              </Text>
+            </Text>
+            <View style={styles.hr}></View>
             <Pressable
               onPress={() => setIsDelete(!isDelete)}
               style={styles.flexView}
