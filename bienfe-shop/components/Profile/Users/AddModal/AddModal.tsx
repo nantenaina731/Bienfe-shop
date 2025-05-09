@@ -19,6 +19,7 @@ const initialData = {
   last_name: "",
   email: "",
   password: "",
+  shop_name:"",
   confirm_password: null,
 };
 
@@ -48,7 +49,9 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
       data.name.trim() != "" &&
       data.last_name.trim() != "" &&
       data.email.trim() != "" &&
-      data.password.trim() != ""
+      data.password.trim() != "" &&
+      data.shop_name.trim() != "" 
+
     ) {
       try {
         setSendLoading(true);
@@ -123,6 +126,22 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           fontSize={14}
           mt={0}
         />
+        <Text
+          style={{ color: "#000", fontWeight: "bold" }}
+          variant="titleMedium"
+        >
+          Vendeur a
+        </Text>
+        <CustomInput
+          name="last_name"
+          value={data.last_name}
+          label={"Prenom..."}
+          handleChange={handleChange}
+          height={45}
+          fontSize={14}
+          mt={0}
+        />
+        
         <Text
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"

@@ -19,6 +19,7 @@ const initialData = {
   email: "",
   password: "",
   confirm_password: null,
+ 
 };
 
 const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
@@ -44,10 +45,12 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
       return;
     }
     if (
-      //data.name.trim() != "" &&
-     // data.last_name.trim() != "" &&
+      data.name.trim() != "" &&
+      data.last_name.trim() != "" &&
       data.email.trim() != "" &&
       data.password.trim() != ""
+  
+
     ) {
       try {
         setSendLoading(true);
