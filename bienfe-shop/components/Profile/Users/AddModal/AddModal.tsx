@@ -134,7 +134,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="last_name"
-          value={data.last_name}
+          value={data.shop_name}
           label={"Prenom..."}
           handleChange={handleChange}
           height={45}
