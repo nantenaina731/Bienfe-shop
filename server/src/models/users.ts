@@ -62,17 +62,17 @@ const model = {
 
         return result
     },
-    create: async (name:string, last_name:string, email:string, type: UserType,shop_name:string | undefined, password:string) => {
+    create: async (name:string,last_name:string, email:string,shop_name:string , type: UserType | undefined ,password:string) => {
 
         const result = await prisma.users.create({
             data: {
-                name,
+                name,              
                 last_name,
-                email, 
+                email,
+                shop_name, 
                 password,
                 type,
-                shop_name
-              },
+                              },
         })
 
         return result
@@ -91,14 +91,14 @@ const model = {
 
         return result
     },
-    updateNoPass: async (name:string, last_name:string, id:number,shop_name:string) => {
+    updateNoPass: async (name:string, last_name:string, id:number) => {
 
         const result = await prisma.users.update({
             where: { id: Number(id) },
             data: {
                 name,
                 last_name,
-                shop_name
+                
             },
         })
 

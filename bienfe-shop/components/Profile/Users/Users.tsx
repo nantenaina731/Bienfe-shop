@@ -72,7 +72,7 @@ const Users = ({ setSuccess }: props) => {
         <DataTable.Header>
           <DataTable.Title>Nom</DataTable.Title>
           <DataTable.Title>Créer le</DataTable.Title>
-          <DataTable.Title>vendeur a</DataTable.Title>
+          <DataTable.Title>Boutique</DataTable.Title>
         </DataTable.Header>
         {loading && <Loading />}
         {!loading && data.length == 0 && (

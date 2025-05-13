@@ -167,10 +167,10 @@ const controller = {
         }
     },
     updateNoPass: async (req: Request, res: Response) => {
-        let { name, last_name,shop_name } = req.body
+        let { name, last_name } = req.body
         let id = parseInt(req.body.id)
         try { 
-            let data = await model.updateNoPass(name, last_name, id,shop_name)
+            let data = await model.updateNoPass(name, last_name, id)
             res.status(200).send(data)
         }
         catch (error: any) {

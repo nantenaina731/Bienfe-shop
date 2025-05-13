@@ -130,12 +130,12 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Vendeur a
+          Boutique
         </Text>
         <CustomInput
           name="shop_name"
+          label={"vendeur a..."}
           value={data.shop_name}
-          label={"Vendeur a..."}
           handleChange={handleChange}
           height={45}
           fontSize={14}
@@ -146,17 +146,18 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Email{" "}
+          Email {" "}
         </Text>
         <CustomInput
           name="email"
           value={data.email}
-          label={"Prenom..."}
+          label={"email..."}
           handleChange={handleChange}
           height={45}
           fontSize={14}
           mt={0}
         />
+        
         <Text
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
@@ -165,7 +166,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="password"
-        
           label={"Mot de passe"}
           handleChange={handleChange}
           height={45}
@@ -180,7 +180,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="confirm_password"
-        
           label={"Confirmation"}
           handleChange={handleChange}
           height={45}
