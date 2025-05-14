@@ -109,6 +109,7 @@ const Login = () => {
             onPress={handleSubmit}
             disabled={loading}
           />
+           {error && <ErrorView errorMessage={errorMessage} />}
           </View>
             </View>
             
