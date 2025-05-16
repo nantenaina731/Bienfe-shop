@@ -75,10 +75,10 @@ const Login = () => {
       <View style={styles.container}>
         <Image  
         source={require("../assets/images/logo.png")}
-        style={{top:-60,marginLeft:"24%"}}
+        style={{top:-90,marginLeft:"24%"}}
         />
         <Text style={styles.firstTitle} variant="titleMedium">
-          Bonjour !
+          Bonjour!
         </Text>
         <Text style={styles.secondTitle} >
           Pour commencer votre journées,veuillez vous-connectez
@@ -103,9 +103,9 @@ const Login = () => {
           </View>
           </View>
           <CustomButton
-            mt={25}
+            mt={27}
             rounded={false}
-            text={ loading ? " Chargement...":"connexion"}
+            text={ loading ? " Patientez...":"connexion"}
             onPress={handleSubmit}
             disabled={loading}
           />
@@ -120,7 +120,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: "25%",
+    marginTop: "50%",
   },
   firstTitle: {
     fontWeight: "500",
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   },
   logo:{
     width:"100%",
-    height:"14%",
-    top:"-10%",
+    height:"13%",
+    top:"-9%",
     left:"31%",
     fontSize:19,
     color:"#0C1D32",

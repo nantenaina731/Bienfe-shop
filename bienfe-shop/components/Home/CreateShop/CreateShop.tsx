@@ -12,9 +12,12 @@ interface props {
 }
 
 const CreateShop=( {fileData,setFileData}:props)=>{
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 const handleValidate=()=>{
     console.log('click')
 }
+
 const handleTakePhoto = async () => {
   const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -37,9 +40,12 @@ const handleTakePhoto = async () => {
       type: file.mimeType || "application/octet-stream",
     };
     setFileData(fileToUpload);
+  
     // setVisible(false)
   }
+  
 };
+
 return(
 <View style={styles.container}>
       <View>
@@ -55,25 +61,13 @@ return(
         <CustomInput
          name="nom"
           label={"Nom du boutique"}
-//          handleChange={handleChange}
+          handleChange={handleChange}
           //value={lavageInfo.carMatricul}
           height={45}
           fontSize={14}
         />
       </View>
       <View style={{ marginTop: 15, display: "flex" }}>
-          {fileData && (
-            <Image
-              source={{ uri: fileData.uri }}
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 5,
-                marginBottom: 5
-              }}
-            />
-          )}
-         
         
       <Button
            onPress={handleTakePhoto}
@@ -86,6 +80,30 @@ return(
             Choisir logo
           </Button>
           </View>
+          <View style={{ marginTop: 15, display: "flex" }}>
+          {fileData && (
+            <Image
+              source={{ uri: fileData.uri }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 5,
+                marginBottom: 5
+              }}
+            />
+          )}
+         
+          <Button
+            onPress={handleTakePhoto}
+            uppercase={false}
+            mode="outlined"
+            style={{borderRadius: 7}}
+          >
+            {fileData ? "Changer l'image" : "Prendre une photo"}
+          </Button>
+        </View>
+        { /*errorMessage && <ErrorView errorMessage={errorMessage} />*/}
+      
       <View style={{ marginTop: 15 }}>
       
             <View style={{ marginTop: 15 }}>
