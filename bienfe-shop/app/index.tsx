@@ -75,7 +75,8 @@ const Login = () => {
       <View style={styles.container}>
         <Image  
         source={require("../assets/images/logo.png")}
-        style={{top:-90,marginLeft:"24%"}}
+        style={{top:-95,marginLeft:"31%", width: 120,
+        height: 20,}}
         />
         <Text style={styles.firstTitle} variant="titleMedium">
           Bonjour!
