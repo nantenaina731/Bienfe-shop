@@ -79,7 +79,7 @@ const Login = () => {
         height: 21,}}
         />
         <Text style={styles.firstTitle} variant="titleMedium">
-          Bonjour!
+          Bonjour et Bienvenue!
         </Text>
         <Text style={styles.secondTitle} >
           Pour commencer votre journées,veuillez vous-connectez
