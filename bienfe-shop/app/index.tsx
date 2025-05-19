@@ -30,6 +30,7 @@ const Login = () => {
     });
   };
   const handleSubmit =async( ) => {
+    console.log("Bouton pressé"); // ← AJOUTE CECI
     if(data.email.trim() && data.password.trim()) {
       try {
         setloading(true);
@@ -76,7 +77,7 @@ const Login = () => {
         <Image  
         source={require("../assets/images/logo.png")}
         style={{top:-95,marginLeft:"31%", width: 120,
-        height: 21,}}
+        height: 22,}}
         />
         <Text style={styles.firstTitle} variant="titleMedium">
           Bonjour et Bienvenue!
@@ -106,7 +107,7 @@ const Login = () => {
           <CustomButton
             mt={27}
             rounded={false}
-            text={ loading ? " Patientez...":"connexion"}
+            text={ loading ? " Chargement...":"connexion"}
             onPress={handleSubmit}
             disabled={loading}
           />
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   },
   firstTitle: {
     fontWeight: "500",
-    fontSize: 18,
+    fontSize: 16,
     top: '-7%',
     color:"#64B244",
     textAlign:"center"

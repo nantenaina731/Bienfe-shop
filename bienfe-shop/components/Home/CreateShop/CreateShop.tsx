@@ -14,6 +14,9 @@ interface props {
 const CreateShop=( {fileData,setFileData}:props)=>{
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+const handleChange=()=>{
+    console.log('change')
+}
 const handleValidate=()=>{
     console.log('click')
 }

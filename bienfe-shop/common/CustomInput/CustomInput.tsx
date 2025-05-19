@@ -11,7 +11,7 @@ interface props {
   editable?: boolean;
   height?: number;
   fontSize?: number;
-  type?: KeyboardTypeOptions;
+  type?: any;
   mt?: number;
 }
 
