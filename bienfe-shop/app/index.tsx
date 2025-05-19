@@ -30,7 +30,7 @@ const Login = () => {
     });
   };
   const handleSubmit =async( ) => {
-    console.log("Bouton pressé"); // ← AJOUTE CECI
+   
     if(data.email.trim() && data.password.trim()) {
       try {
         setloading(true);
@@ -94,12 +94,14 @@ const Login = () => {
               name="email"
               label={" Email"}
               handleChange={handleChange}
+              value={data.email}
             />
           </View>
           <View style={{ marginTop: 10 }}>
             <CustomInput
               name="password"
               label={" Mots de passe"}
+              value={data.password}
               handleChange={handleChange}
             />
           </View>

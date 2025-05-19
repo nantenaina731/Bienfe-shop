@@ -96,16 +96,7 @@ return(
             />
           )}
          
-          <Button
-            onPress={handleTakePhoto}
-            uppercase={false}
-            mode="outlined"
-            style={{borderRadius: 7}}
-          >
-            {fileData ? "Changer l'image" : "Prendre une photo"}
-          </Button>
         </View>
-        { /*errorMessage && <ErrorView errorMessage={errorMessage} />*/}
       
       <View style={{ marginTop: 15 }}>
       

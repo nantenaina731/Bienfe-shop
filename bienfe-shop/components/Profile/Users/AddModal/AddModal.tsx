@@ -48,7 +48,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
     if (
       data.name.trim() != "" &&
       data.last_name.trim() != "" &&
-      data.shop_name.trim() != "" && 
       data.email.trim() != "" &&
       data.password.trim() != ""
       
@@ -131,7 +130,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Boutique
+          Boutique {""}
         </Text>
         <CustomInput
           name="shop_name"
