@@ -147,7 +147,7 @@ const controller = {
         }
     },
     update: async (req: Request, res: Response) => {
-        let {name, last_name, password, shop_name } = req.body
+        let {name, last_name, password,shop_name } = req.body
         let id = parseInt(req.body.id)
         try { 
             let saltRounds = 10
@@ -156,7 +156,7 @@ const controller = {
                     res.status(403).send("Registration failed")
                 }
                 else {
-                    let data = await model.update(name, last_name, hash,password,shop_name )
+                    let data = await model.update(name, last_name,shop_name, hash,id)
                     res.status(200).send(data)
                 }
             })

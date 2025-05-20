@@ -76,7 +76,7 @@ const model = {
 
         return result
     },
-    update:  async (name:string, last_name:string, password:string, id:number,shop_name:string) => {
+    update:  async (name:string, last_name:string, password:string, shop_name:string,id:number,) => {
 
         const result = await prisma.users.update({
             where: { id: Number(id) },

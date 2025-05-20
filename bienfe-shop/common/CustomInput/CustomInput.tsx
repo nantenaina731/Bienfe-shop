@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { KeyboardTypeOptions, StyleSheet } from "react-native";
+import {  StyleSheet,KeyboardTypeOptions } from "react-native";
 import { TextInput, useTheme } from "react-native-paper";
 
 
@@ -7,7 +7,7 @@ interface props {
   label: string;
   name: string;
   value?: string | undefined;
- handleChange: any;
+  handleChange: any;
   editable?: boolean;
   height?: number;
   fontSize?: number;
@@ -52,8 +52,6 @@ const CustomInput = ({
       theme={{ 
         roundness: 10,
         colors:{primary:"#98A0A3"}
-
-
       }}
       editable={editable}
       keyboardType={type}

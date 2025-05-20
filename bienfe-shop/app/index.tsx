@@ -11,7 +11,7 @@ import { StyleSheet, View,Image,TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 
 const Login = () => {
-  const[loading,setloading]=useState(false)
+  const[loading,setLoading]=useState(false)
   
   const [data, setData] = useState<userToSend>({
     email: "",
@@ -29,11 +29,10 @@ const Login = () => {
       [name]: value,
     });
   };
-  const handleSubmit =async( ) => {
-   
+  const handleSubmit = async () => {
     if(data.email.trim() && data.password.trim()) {
       try {
-        setloading(true);
+        setLoading(true);
         setError(null);
         let toSend: userToSend = data;
         toSend.email = toSend.email.trim();
@@ -44,11 +43,8 @@ const Login = () => {
             ...res.user,
             token: res.token
           })
-        
           router.replace('/tabs')
-         
         }
-        
       } catch (error: any) {
         setError(error);
         if (error.response) {
@@ -62,7 +58,7 @@ const Login = () => {
           console.log("Error message:", error.response);
         }
       } finally {
-        setloading(false);
+        setLoading(false);
       }
     }
     else {
@@ -93,27 +89,27 @@ const Login = () => {
             <CustomInput
               name="email"
               label={" Email"}
-              handleChange={handleChange}
-              value={data.email}
+              handleChange={handleChange}            
             />
           </View>
           <View style={{ marginTop: 10 }}>
             <CustomInput
               name="password"
               label={" Mots de passe"}
-              value={data.password}
               handleChange={handleChange}
             />
           </View>
           </View>
+          <TouchableOpacity>
           <CustomButton
-            mt={27}
+            mt={32}
             rounded={false}
-            text={ loading ? " Chargement...":"connexion"}
-            onPress={handleSubmit}
+            text={ loading ? "Chargement..." : "Connexion"}
             disabled={loading}
+            onPress={handleSubmit}
           />
            {error && <ErrorView errorMessage={errorMessage} />}
+          </TouchableOpacity>
           </View>
             </View>
             
