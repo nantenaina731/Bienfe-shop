@@ -7,8 +7,10 @@ import useToken from "@/services/useToken";
 import { userToSend } from "@/types/types";
 import { router } from "expo-router";
 import { useState } from "react";
+import {GestureHandlerRootView,GestureDetector, Gesture} from "react-native-gesture-handler"
 import { StyleSheet, View,Image,TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
+import { TapGesture } from "react-native-gesture-handler/lib/typescript/handlers/gestures/tapGesture";
 
 const Login = () => {
   const[loading,setLoading]=useState(false)
@@ -17,6 +19,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  
   
   const [error, setError] = useState<null | string>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -29,6 +32,8 @@ const Login = () => {
       [name]: value,
     });
   };
+  
+  
   const handleSubmit = async () => {
     if(data.email.trim() && data.password.trim()) {
       try {
@@ -66,17 +71,20 @@ const Login = () => {
       setErrorMessage("Vous devez completer les champs");
     }
   };
+  const tapGesture = Gesture.Tap().onEnd(() => {
+    handleSubmit();
+  });
 
   return (
     <Layout isScroll={true}>
       <View style={styles.container}>
         <Image  
         source={require("../assets/images/logo.png")}
-        style={{top:-95,marginLeft:"31%", width: 120,
+        style={{top:-80,marginLeft:"31%", width: 120,
         height: 22,}}
         />
         <Text style={styles.firstTitle} variant="titleMedium">
-          Bonjour et Bienvenue!
+          Bonjour 
         </Text>
         <Text style={styles.secondTitle} >
           Pour commencer votre journées,veuillez vous-connectez
@@ -100,16 +108,17 @@ const Login = () => {
             />
           </View>
           </View>
-          <TouchableOpacity>
-          <CustomButton
-            mt={32}
-            rounded={false}
-            text={ loading ? "Chargement..." : "Connexion"}
-            disabled={loading}
-            onPress={handleSubmit}
-          />
+          
+         <GestureHandlerRootView>
+      <TouchableOpacity onPress={handleSubmit}>           
+         <Text>
+              click
+            </Text>
+         
+            </TouchableOpacity>
+
+         </GestureHandlerRootView>
            {error && <ErrorView errorMessage={errorMessage} />}
-          </TouchableOpacity>
           </View>
             </View>
             
