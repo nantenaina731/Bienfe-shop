@@ -102,16 +102,17 @@ const Login = () => {
             />
           </View>
           </View>
-          <TouchableOpacity>
-          <CustomButton
-            mt={32}
-            rounded={false}
-            text={ loading ? "Chargement..." : "Connexion"}
-            disabled={loading}
-            onPress={handleSubmit}
-          />
+          <View>
+            <CustomButton
+              mt={32}
+              width="100%"
+              rounded={false}
+              text={ loading ? "Chargement..." : "Connexion"}
+              disabled={loading}
+              onPress={handleSubmit}
+            />
+          </View>
            {error && <ErrorView errorMessage={errorMessage} />}
-          </TouchableOpacity>
           </View>
             </View>
             
