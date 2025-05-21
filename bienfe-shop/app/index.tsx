@@ -30,7 +30,9 @@ const Login = () => {
     });
   };
   const handleSubmit =async( ) => {
+    console.log('Click button')
     if(data.email.trim() && data.password.trim()) {
+      console.log('Validate button')
       try {
         setloading(true);
         setError(null);
