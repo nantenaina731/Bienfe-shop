@@ -12,7 +12,7 @@ interface props {
   height?: any
 }
 
-const CustomButton = ({ mt, text, rounded,disabled ,width, height,onPress }: props) => {
+const CustomButton = ({ mt, text, rounded,disabled ,width, height,onPress}: props) => {
   const theme = useTheme();
   const { primary } = theme.colors;
   

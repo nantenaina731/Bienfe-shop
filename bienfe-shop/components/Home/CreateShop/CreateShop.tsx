@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
       borderRadius: 15,
       color: "white",
       padding: 15,
-      marginTop: -55,
+      marginTop: 3,
       marginLeft:19
     },
     textLabel: {

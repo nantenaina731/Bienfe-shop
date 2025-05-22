@@ -1,3 +1,4 @@
+
 import CustomButton from "@/common/CustomButton/CustomButton";
 import CustomInput from "@/common/CustomInput/CustomInput";
 import ErrorView from "@/common/ErrorView/ErrorView";
@@ -7,10 +8,8 @@ import useToken from "@/services/useToken";
 import { userToSend } from "@/types/types";
 import { router } from "expo-router";
 import { useState } from "react";
-import {GestureHandlerRootView,GestureDetector, Gesture} from "react-native-gesture-handler"
-import { StyleSheet, View,Image,TouchableOpacity } from "react-native";
+import { StyleSheet, View,Image,TouchableOpacity ,Keyboard} from "react-native";
 import { Text } from "react-native-paper";
-import { TapGesture } from "react-native-gesture-handler/lib/typescript/handlers/gestures/tapGesture";
 
 const Login = () => {
   const[loading,setLoading]=useState(false)
@@ -19,7 +18,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-  
   
   const [error, setError] = useState<null | string>(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,15 +30,20 @@ const Login = () => {
       [name]: value,
     });
   };
-  
-  
-  const handleSubmit = async () => {
+  const handleSubmit =async( ) => {
+    console.log('Validate button')
+    router.replace('/tabs')
+    
     if(data.email.trim() && data.password.trim()) {
+    /* 
+      
       try {
         setLoading(true);
         setError(null);
+         
         let toSend: userToSend = data;
         toSend.email = toSend.email.trim();
+       
         let response = await https.post("/users/login", toSend);
         if (response) {
           let res = response.data
@@ -69,22 +72,22 @@ const Login = () => {
     else {
       setError("error");
       setErrorMessage("Vous devez completer les champs");
+      */
     }
+    
   };
-  const tapGesture = Gesture.Tap().onEnd(() => {
-    handleSubmit();
-  });
+  
 
   return (
     <Layout isScroll={true}>
       <View style={styles.container}>
         <Image  
         source={require("../assets/images/logo.png")}
-        style={{top:-80,marginLeft:"31%", width: 120,
+        style={{top:-95,marginLeft:"31%", width: 120,
         height: 22,}}
         />
         <Text style={styles.firstTitle} variant="titleMedium">
-          Bonjour 
+          Bonjour et Bienvenue!
         </Text>
         <Text style={styles.secondTitle} >
           Pour commencer votre journées,veuillez vous-connectez
@@ -108,16 +111,16 @@ const Login = () => {
             />
           </View>
           </View>
-          
-         <GestureHandlerRootView>
-      <TouchableOpacity onPress={handleSubmit}>           
-         <Text>
-              click
-            </Text>
-         
-            </TouchableOpacity>
-
-         </GestureHandlerRootView>
+          <View>
+            <CustomButton
+              mt={32}
+              width="100%"
+              rounded={false}
+              text={ loading ? "Chargement..." : "Connexion"}
+              disabled={loading}
+              onPress={handleSubmit}
+            />
+          </View>
            {error && <ErrorView errorMessage={errorMessage} />}
           </View>
             </View>

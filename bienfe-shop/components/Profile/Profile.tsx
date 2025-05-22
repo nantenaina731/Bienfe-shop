@@ -25,7 +25,7 @@ const Profile = () => {
   const [activePage, setActivePage] = useState<profilePage>("Mon compte");
   const [success, setSuccess] = useState<boolean>(false);
   const { token } = useToken();
-  const isAdmin = token.type == "admin";
+  const isAdmin = token?.type === "admin";
 
   const displayPage = () => {
     switch (activePage) {

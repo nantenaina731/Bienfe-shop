@@ -30,9 +30,10 @@ enum UserType {
   gestionnaire
 }
 
-model Shop {
+  model Shop {
   id     Int    @id @default(autoincrement())
   name   String
+  isDelete   Boolean      @default(false)
   logo   String?
 }
 
