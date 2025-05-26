@@ -33,22 +33,23 @@ const controller = {
         }
     },
     create: async (req: Request, res: Response) => {
-        let { name } = req.body
-
+        const { name } = req.body;
+        const logo = req.file ? `/uploads/${req.file.filename}` : ""; // optionnel
+    
         try {
-            let data = await model.create(name)
-            res.status(200).send(data)
-        }
-        catch (error: any) {
-            console.log(error)
-            res.status(500).send(error)
+            const data = await model.create(name, logo);
+            res.status(200).send(data);
+        } catch (error: any) {
+            console.log(error);
+            res.status(500).send(error.message);
         }
     },
+    
     update: async (req: Request, res: Response) => {
-        let { name } = req.body
+        let { name,logo } = req.body
         let id = parseInt(req.body.id)
         try { 
-            let data = await model.update(name, id)
+            let data = await model.update(name, id,logo)
             res.status(200).send(data)
         }
         catch (error: any) {

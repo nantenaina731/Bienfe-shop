@@ -34,6 +34,6 @@ enum UserType {
   id     Int    @id @default(autoincrement())
   name   String
   isDelete   Boolean      @default(false)
-  logo   String?
+  logo   Json?
 }
 

@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const BaseApi = "http://192.168.185.155:9001/api" 
-const BaseUrl = "http://192.168.185.155:9001"  
+const BaseApi = "http://192.168.43.110:9001/api" 
+const BaseUrl = "http://192.168.43.110:9001"  
 
 const useHttps = () => {
   const user = useSelector((state: any) => state.user.value)

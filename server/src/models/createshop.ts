@@ -21,22 +21,24 @@ const model = {
         
         return result 
     },
-    create: async (name:string) => {
+    create: async (name:string,logo:string) => {
 
         const result = await prisma.shop.create({
             data: {
-                name
+                name,
+                logo
               },
         })
 
         return result
     },
-    update:  async (name:string, id:number) => {
+    update:  async (name:string, id:number,logo:string) => {
 
         const result = await prisma.shop.update({
             where: { id: Number(id) },
             data: {
-                name
+                name,
+                logo
             },
         })
 
