@@ -135,7 +135,7 @@ return(
                 width: 100,
                 height: 100,
                 borderRadius: 5,
-                marginBottom: 5
+                marginBottom: 5,
               }}
             />
           )}

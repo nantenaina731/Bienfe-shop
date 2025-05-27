@@ -27,6 +27,6 @@ app.use('/api/users', userRoute)
 app.use ('/api/createshop',createShopRoute)
 const localImages = process.env.ENV && process.env.ENV == "developpement" ? '../logo' : '../../logo'
 console.log(path.join(__dirname, localImages))
-app.use('/images', express.static(path.join(__dirname, localImages)));
+app.use('/logo', express.static(path.join(__dirname, localImages)));
 
 app.listen(9001, () => console.log("Api listen on port 9001"))
