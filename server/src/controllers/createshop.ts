@@ -1,5 +1,6 @@
 import { Response, Request } from "express"
 import model from "../models/createshop"
+import { uploadFile } from "../services/services"
 
 const controller = {
     getAll: async (req: Request, res: Response) => {
@@ -33,18 +34,35 @@ const controller = {
         }
     },
     create: async (req: Request, res: Response) => {
-        const { name } = req.body;
-        const logo = req.file ? `/uploads/${req.file.filename}` : ""; // optionnel
-    
+        let { 
+           name
+    } = req.body
+
+        let url_image : any = null
         try {
-            const data = await model.create(name, logo);
-            res.status(200).send(data);
-        } catch (error: any) {
-            console.log(error);
-            res.status(500).send(error.message);
+            if(req.files && req.files.logo){
+                const src = await uploadFile('./logo/', req.files.logo)
+                if(src){
+                    url_image = src
+                }
+            }
+            const logo = url_image ? {
+                data: [url_image]
+            } :  {
+                data: []
+            } 
+            let data = await model.create(
+                name,
+                logo,
+            )
+           
+        }
+        catch (error: any) {
+            console.log(error)
+            res.status(500).send(error)
         }
     },
-    
+        
     update: async (req: Request, res: Response) => {
         let { name,logo } = req.body
         let id = parseInt(req.body.id)

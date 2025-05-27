@@ -2,115 +2,96 @@ import CustomButton from "@/common/CustomButton/CustomButton";
 import CustomInput from "@/common/CustomInput/CustomInput";
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
-import SuccessSnackBar from "@/common/SuccessSnackBar/SuccessSnackBar";
-import { Button, Text, useTheme } from "react-native-paper";
+import { Button, Text} from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import { ShopInfo} from "@/types/types";
 import { Image } from "expo-image";
 import ErrorView from "@/common/ErrorView/ErrorView";
 import useHttps from "@/services/useHttps";
 import { useFocusEffect } from "expo-router";
-let initialValue = {
-  
-  name: "",
-  logo:"",
+const initialLavageInfoData = {
+  name:"",
 };
+interface props {
+  setShopInfo: Dispatch<SetStateAction<ShopInfo>>;
+  shopInfo: any;
+  toggleSnackBar: any;
+  fileData: any;
+  setFileData: any;
+}
 
-const CreateShop=( {fileData,setFileData, getShop}:any)=>{
+
+const CreateShop=( {fileData,setFileData, setShopInfo,toggleSnackBar,shopInfo}:props)=>{
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [sendloading, setSendLoading] = useState(false);
-  const [success, setSuccess] = useState<boolean>(false);
-  const [data, setData] = useState(initialValue);
-
-  const { https } = useHttps();
+  const [loading, setLoading] = useState(false);
+  const {httpsFile } = useHttps();
 
   const handleChange = (name: string, value: string) => {
-    setData( ({
-      ...data,
+    setShopInfo( ({
+      ...shopInfo,
       [name]: value,
     }));
   };
   
-  const handleSubmit = async () => {
-    setErrorMessage(null);
-  
-    if ((data.name ?? "").trim() !== "") {
+  const handleValidate = async () => {
+     {
       try {
-        setSendLoading(true);
-        
-        const formData = new FormData();
-        formData.append("name", data.name);
-  
+        setErrorMessage(null);
+        setLoading(true);
+        const formData = new FormData();       
+        formData.append("name", shopInfo.name);
         if (fileData) {
-          formData.append("logo", {
-            uri: fileData.uri,
-            name: fileData.name,
-            type: fileData.type,
-          } as any); // TypeScript peut râler ici, mais `as any` contourne l'erreur
+          formData.append("logo", fileData, fileData.name+".jpg");
         }
-  
-        const response = await https.post("/createshop", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-  
+        let response = await httpsFile.post("/createshop", formData);
         if (response) {
-          setSuccess(true);
-          setData(initialValue);
+          toggleSnackBar();
+          setShopInfo(initialLavageInfoData);
           setFileData(null);
         }
       } catch (error: any) {
+        console.log(error);
         if (error.response) {
+          console.log(error.response);
           setErrorMessage(error.response.data);
         } else if (error.request) {
+          console.log(error.request);
           setErrorMessage("Request error");
           console.log("Error request:", error.request);
         } else {
-          setErrorMessage("Une erreur s'est produite");
-          console.log("Error message:", error.message);
+          setErrorMessage("Une érreur c'est produite");
+          console.log("Error message:", error.response);
         }
       } finally {
-        setSendLoading(false);
+        setLoading(false);
       }
-    } else {
-      setErrorMessage("Compléter les champs");
-    }
   };
-    const handleTakePhoto = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  
-    if (!permissionResult.granted) {
-      Alert.alert("Permission pour accéder à la galerie a été refusée !");
-      return;
-    }
-  
-    const result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 0.7,
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    });
-  
-    if (!result.canceled) {
-      const file = result.assets[0];
-  
-      const fileToUpload = {
-        uri: file.uri,
-        name: Date.now().toString() + ".jpeg",
-        type: file.mimeType || "image/jpeg",
-      };
-  
-      // Stocke seulement le fichier dans fileData
-      setFileData(fileToUpload);
-  
-      // Mets à jour localement le champ logo (juste pour affichage si tu veux)
-      setData((prev) => ({
-        ...prev,
-        logo: file.uri,
-      }));
-    }
-  };
-  
+};
+const handleTakePhoto = async () => {
+  const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+  if (permissionResult.granted === false) {
+    Alert.alert("Permission pour accéder à l'appareil photo a été refusée !");
+    return;
+  }
+
+  let result : any = await ImagePicker.launchCameraAsync({
+    allowsEditing: true,
+    quality: 0.7
+  });
+
+  if (!result.cancelled) {
+    let file = result.assets[0];
+    const fileToUpload = {
+      uri: file.uri,
+      name: Date.now().toString() + ".jpeg",
+      type: file.mimeType || "application/octet-stream",
+    };
+    setFileData(fileToUpload);
+    // setVisible(false)
+  }
+};
+
 return(
 <View style={styles.container}>
       <View>
@@ -127,7 +108,7 @@ return(
            name="name"
            label="Nom du boutique"
            handleChange={handleChange}
-           value={data.name}
+           value={shopInfo.name}
            height={45}
            fontSize={14}
         />
@@ -169,13 +150,12 @@ return(
             width={"70%"}
             height={50}
             text="Creer boutique"
-            onPress={handleSubmit}
-            disabled={sendloading}
+            onPress={handleValidate}
+            disabled={loading}
           />
            {errorMessage && <ErrorView errorMessage={errorMessage} />}
   
         </View>
-        <SuccessSnackBar mb={10} visible={success} setVisible={setSuccess} />
       </View>
     </View>
     

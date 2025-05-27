@@ -16,7 +16,7 @@ const generateToken = (id: number | undefined, email: string | undefined) => {
   return token;
 };
 
-const uploadFile = (chemin: any, fichier: any, add_name: any) => {
+const uploadFile = (chemin: any, fichier: any) => {
   return new Promise((resolve, reject) => {
     let uploadPath,
       current_time = new Date().getTime(),
@@ -28,7 +28,7 @@ const uploadFile = (chemin: any, fichier: any, add_name: any) => {
 
     let fichier_name = fichier.name.split(".");
     let ext = fichier_name[fichier_name.length - 1];
-    nom_img = add_name + "_bienfeshop_" + current_time + String(Math.random()) + "." + ext;
+    nom_img =  "_bienfeshop_" + current_time + String(Math.random()) + "." + ext;
     uploadPath = chemin + nom_img;
 
     fichier.mv(uploadPath, function (err: any) {
