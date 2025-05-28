@@ -27,57 +27,62 @@ const CreateShop=( {fileData,setFileData, setShopInfo,toggleSnackBar,shopInfo}:p
   const {httpsFile } = useHttps();
 
   const handleChange = (name: string, value: string) => {
-    setShopInfo( ({
-      ...shopInfo,
-      [name]: value,
+    setShopInfo(prev => ({
+      ...prev,
+      [name]: value
     }));
   };
   
-  const handleValidate = async () => {
-     {
-      try {
-        setErrorMessage(null);
-        setLoading(true);
-        const formData = new FormData();       
-        formData.append("name", shopInfo.name);
-        if (fileData) {
-          formData.append("logo", fileData, fileData.name+".jpg");
-        }
-        let response = await httpsFile.post("/createshop", formData);
-        if (response) {
-          toggleSnackBar();
-          setShopInfo(initialLavageInfoData);
-          setFileData(null);
-        }
-      } catch (error: any) {
-        console.log(error);
-        if (error.response) {
-          console.log(error.response);
-          setErrorMessage(error.response.data);
-        } else if (error.request) {
-          console.log(error.request);
-          setErrorMessage("Request error");
-          console.log("Error request:", error.request);
-        } else {
-          setErrorMessage("Une érreur c'est produite");
-          console.log("Error message:", error.response);
-        }
-      } finally {
-        setLoading(false);
+   
+  const handleSubmit = async () => {
+    try {
+      setErrorMessage(null);
+      setLoading(true);
+      const formData = new FormData();       
+      formData.append("name", shopInfo.name);
+  
+      if (fileData) {
+        formData.append("logo", fileData, fileData.name + ".jpg");
       }
+  
+      let response = await httpsFile.post("/createshop", formData);
+  
+      if (response) {
+        toggleSnackBar();
+        setShopInfo(initialLavageInfoData);
+        setFileData(null);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.response) {
+        setErrorMessage(error.response.data);
+      } else if (error.request) {
+        setErrorMessage("Request error");
+      } else {
+        setErrorMessage("Une erreur s'est produite");
+      }
+    } finally {
+      setLoading(false);
+      if (!shopInfo.name.trim()) {
+        setErrorMessage("Le nom de la boutique est requis.");
+        setLoading(false);
+        return;
+      }
+      
+    }
   };
-};
+  
 const handleTakePhoto = async () => {
-  const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
   if (permissionResult.granted === false) {
-    Alert.alert("Permission pour accéder à l'appareil photo a été refusée !");
+    Alert.alert("Permission pour accéder à la galerie a été refusée !");
     return;
   }
 
-  let result : any = await ImagePicker.launchCameraAsync({
+  let result: any = await ImagePicker.launchImageLibraryAsync({
     allowsEditing: true,
-    quality: 0.7
+    quality: 0.7,
   });
 
   if (!result.cancelled) {
@@ -88,10 +93,8 @@ const handleTakePhoto = async () => {
       type: file.mimeType || "application/octet-stream",
     };
     setFileData(fileToUpload);
-    // setVisible(false)
   }
 };
-
 return(
 <View style={styles.container}>
       <View>
@@ -106,7 +109,7 @@ return(
         </Text>
         <CustomInput
            name="name"
-           label="Nom du boutique"
+           label="Entrer le nom .."
            handleChange={handleChange}
            value={shopInfo.name}
            height={45}
@@ -150,7 +153,7 @@ return(
             width={"70%"}
             height={50}
             text="Creer boutique"
-            onPress={handleValidate}
+            onPress={handleSubmit}
             disabled={loading}
           />
            {errorMessage && <ErrorView errorMessage={errorMessage} />}
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
       borderRadius: 15,
       color: "white",
       padding: 15,
-      marginTop: 3,
+      marginTop: -50,
       marginLeft:19
     },
     textLabel: {

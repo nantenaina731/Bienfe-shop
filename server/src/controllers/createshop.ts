@@ -34,35 +34,33 @@ const controller = {
         }
     },
     create: async (req: Request, res: Response) => {
-        let { 
-           name
-    } = req.body
-
-        let url_image : any = null
+        const { name } = req.body;
+        let url_image: any = null;
+      
         try {
-            if(req.files && req.files.logo){
-                const src = await uploadFile('./logo/', req.files.logo)
-                if(src){
-                    url_image = src
-                }
+          if (req.files && req.files.logo) {
+            const src = await uploadFile('./logo/', req.files.logo);
+            if (src) {
+              url_image = src;
             }
-            const logo = url_image ? {
-                data: [url_image]
-            } :  {
-                data: []
-            } 
-            let data = await model.create(
-                name,
-                logo,
-            )
+          }
+      
+          const logo = url_image ? { data: [url_image] } : { data: [] };
+      
+          const data = await model.create(name, logo);
+      
+          // ✅ Ne pas faire "return"
+          res.status(201).json({
+            message: "Boutique créée avec succès",
+            data
+          });
+      
+        } catch (error: any) {
+          console.log(error);
+          res.status(500).json({ message: error.message });
+        }
+      },
            
-        }
-        catch (error: any) {
-            console.log(error)
-            res.status(500).send(error)
-        }
-    },
-        
     update: async (req: Request, res: Response) => {
         let { name,logo } = req.body
         let id = parseInt(req.body.id)

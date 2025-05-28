@@ -31,12 +31,7 @@ const Login = () => {
     });
   };
   const handleSubmit =async( ) => {
-    console.log('Validate button')
-    router.replace('/tabs')
-    
-    if(data.email.trim() && data.password.trim()) {
-    /* 
-      
+    if(data.email.trim() && data.password.trim()) { 
       try {
         setLoading(true);
         setError(null);
@@ -72,7 +67,6 @@ const Login = () => {
     else {
       setError("error");
       setErrorMessage("Vous devez completer les champs");
-      */
     }
     
   };
@@ -100,7 +94,8 @@ const Login = () => {
             <CustomInput
               name="email"
               label={" Email"}
-              handleChange={handleChange}            
+              handleChange={handleChange}    
+                      
             />
           </View>
           <View style={{ marginTop: 10 }}>
