@@ -30,8 +30,8 @@ const Login = () => {
       [name]: value,
     });
   };
-  const handleSubmit =async( ) => {
-    if(data.email.trim() && data.password.trim()) { 
+  const handleSubmit = async () => {
+    if(data.email.trim() && data.password.trim()) {
       try {
         setLoading(true);
         setError(null);
