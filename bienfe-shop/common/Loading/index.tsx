@@ -12,7 +12,7 @@ const Loading = ({ top }: props) => {
 
   return (
     <View style={{marginTop: top ?? 25, marginBottom: 10}}>
-      <ActivityIndicator size={"small"} animating={true} color={primary} />
+      <ActivityIndicator size={"small"} animating={true} color={"#64B244"} />
     </View>
   );
 };

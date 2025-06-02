@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
       borderRadius: 15,
       color: "white",
       padding: 15,
-      marginTop: -50,
+      marginTop: 50,
       marginLeft:19
     },
     textLabel: {

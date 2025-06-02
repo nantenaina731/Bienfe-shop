@@ -1,5 +1,5 @@
 {
-  "name": "gestion-vente",
+  "name": "bienfe-shop",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -15,25 +15,13 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^7.1.9",
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "date-fns": "^4.1.0",
-    "expo": "^53.0.9",
+    "expo": "53.0.0",
     "expo-build-properties": "~0.14.6",
-=======
-    "@expo/vector-icons": "^14.1.0",
-    "@react-native-community/masked-view": "^0.1.11",
-    "@react-navigation/bottom-tabs": "^7.2.0",
-    "@react-navigation/native": "^7.0.14",
-    "@react-navigation/native-stack": "^7.2.0",
-    "@reduxjs/toolkit": "^2.6.1",
-    "axios": "^1.8.4",
-    "expo": "53.0.9",
-    "expo-blur": "~14.1.4",
->>>>>>> 1091967e9e621a9696538d60e54b2392bd4cdc5f
     "expo-constants": "~17.1.6",
     "expo-dev-client": "~5.1.8",
     "expo-font": "~13.3.1",
@@ -46,7 +34,6 @@
     "expo-status-bar": "~2.2.3",
     "expo-system-ui": "~5.0.7",
     "expo-web-browser": "~14.1.6",
-    "metro": "^0.82.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.2",
@@ -59,7 +46,7 @@
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.10.0",
-    "react-native-svg": "15.11.2",
+    "react-native-svg": "^15.8.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-web": "^0.20.0",
     "react-redux": "^9.1.2"
@@ -75,9 +62,6 @@
     "jest-expo": "~51.0.3",
     "react-test-renderer": "18.2.0",
     "typescript": "~5.3.3"
-  },
-  "expo":{
-    "jsEngine":"jsc"
   },
   "private": true
 }
