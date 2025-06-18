@@ -4,6 +4,8 @@ import express from "express"
 import cors from "cors"
 import userRoute from './routes/users'
 import createShopRoute from './routes/createshop'
+import productsRoute from './routes/products'
+import venteRoute from './routes/vente'
 import fileUpload from "express-fileupload";
 import compression from 'compression';
 import path from 'path';
@@ -25,6 +27,9 @@ app.get('/',(req:Request, res:Response) => {
 
 app.use('/api/users', userRoute)
 app.use ('/api/createshop',createShopRoute)
+app.use('/api/products', productsRoute)
+app.use('/api/vente',venteRoute)
+
 const localImages = process.env.ENV && process.env.ENV == "developpement" ? '../logo' : '../../logo'
 console.log(path.join(__dirname, localImages))
 app.use('/logo', express.static(path.join(__dirname, localImages)));
