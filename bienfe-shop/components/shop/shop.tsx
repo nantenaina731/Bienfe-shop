@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 import Loading from "@/common/Loading";
 import ShopCard from "../Home/shopCard/shopCard";
@@ -7,16 +7,18 @@ import Layout from "@/common/Layout";
 import useHttps from "@/services/useHttps";
 import Header from "../Home/Header/Header";
 import { useFocusEffect } from "@react-navigation/native";
+import Carts from "../Carts/Carts";
 
 const Shop = ({ setSuccess }: { setSuccess: any }) => {
   const [loading, setLoading] = React.useState(false);
   const [shops, setShops] = React.useState([] as any[]);
+  const [selectedShopId, setSelectedShopId] = useState<number | null>(null); // ← nouveau
   const { https } = useHttps();
 
   const getData = async () => {
     try {
       setLoading(true);
-      console.log("Fetching data..."); 
+      console.log("Fetching data...");
       const response = await https.get("/createshop");
       if (response?.data) {
         setShops(response.data);
@@ -42,7 +44,6 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
       padding: 10,
       paddingBottom: 100,
     },
-    
     noShopsText: {
       color: "red",
       marginTop: 200,
@@ -54,7 +55,23 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
       marginTop: 10,
       marginBottom: 10,
     },
+    returnText: {
+      color: "#007aff",
+      textAlign: "right",
+      marginBottom: 10,
+    },
   });
+
+  if (selectedShopId !== null) {
+    return (
+      <>
+        <TouchableOpacity onPress={() => setSelectedShopId(null)}>
+          <Text style={styles.returnText}>← Retour aux boutiques</Text>
+        </TouchableOpacity>
+        <Carts setSuccess={setSuccess} shopId={selectedShopId} />
+      </>
+    );
+  }
 
   return (
     <Layout fullBody={true} isScroll={false}>
@@ -72,12 +89,16 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
               Votre boutique :
             </Text>
             {shops.map((shopItem: any) => (
-              <ShopCard
+              <TouchableOpacity
                 key={shopItem.id}
-                shop={shopItem}
-                setSuccess={setSuccess}
-                getData={getData}
-              />
+                onPress={() => setSelectedShopId(shopItem.id)}
+              >
+                <ShopCard
+                  shop={shopItem}
+                  setSuccess={setSuccess}
+                  getData={getData}
+                />
+              </TouchableOpacity>
             ))}
           </>
         )}

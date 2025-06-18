@@ -21,7 +21,7 @@ import { useFocusEffect } from "expo-router";
 
 interface props {
   setSuccess: any;
-
+  shopId?: number;
 }
 const months = [
   "Janvier",
@@ -52,7 +52,7 @@ const years = [
 
 //
 
-const Carts = ({ setSuccess }: props) => {
+const Carts = ({ setSuccess ,shopId}: props) => {
   const theme = useTheme();
   const [visible, setVisible] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
@@ -90,6 +90,7 @@ const Carts = ({ setSuccess }: props) => {
         day: selectedDate,
         month: months.indexOf(String(selectedMonth)),
         year: selectedYear,
+        shopId,
       });
       if (response) {
         const res = response.data;
