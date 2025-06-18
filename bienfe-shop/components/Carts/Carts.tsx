@@ -20,9 +20,10 @@ import ShowModify from "./modify/ShowModify";
 import { useFocusEffect } from "expo-router";
 
 interface props {
-  setSuccess: any;
+  setSuccess: (value: boolean) => void;
   shopId?: number;
 }
+
 const months = [
   "Janvier",
   "Février",
@@ -110,7 +111,7 @@ const Carts = ({ setSuccess ,shopId}: props) => {
 
   useEffect(() => {
     getData();// appel de la fonctions  getData
-  }, [selectedMonth, selectedDate, selectedYear]);
+  }, [selectedMonth, selectedDate, selectedYear,shopId]);
 
   const show = (id: any) => {
     if(isAdmin) {
@@ -124,7 +125,6 @@ const Carts = ({ setSuccess ,shopId}: props) => {
   return (
     <>
       <Layout fullBody={true} barDark={true} isScroll={true}>
-        <AppHeader showBackBtn={false} />
         <View
           style={{
             padding: 10,
@@ -175,11 +175,11 @@ const Carts = ({ setSuccess ,shopId}: props) => {
                   data &&
                   
                   data.map((item: any) => (
-                  <TouchableOpacity key={item.id} onPress={() => show(item)} >
-                    <CartsItem key={item} type={item} />
-                  </TouchableOpacity>
-                    
-                  ))}
+                    <TouchableOpacity key={item.id} onPress={() => show(item)} >
+                      <CartsItem type={item} />
+                    </TouchableOpacity>
+                  ))
+                  }
                 {loading && <Loading />}
               
               </View>

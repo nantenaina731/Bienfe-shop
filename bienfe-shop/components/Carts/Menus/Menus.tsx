@@ -2,7 +2,6 @@ import { productPage } from "@/types/types";
 import React, { Dispatch, SetStateAction } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, useTheme } from "react-native-paper";
-
 interface props {
   styles?: any;
   active?: boolean;

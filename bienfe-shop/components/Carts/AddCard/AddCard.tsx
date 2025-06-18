@@ -121,7 +121,7 @@ const AddCard = ({ setDailyData, toggleSnackBar, getDailySpent }: any) => {
       <View>
         <Text style={styles.textLabel} variant="titleLarge">
           Vente{" "}
-          <Text style={{ color: primary }} variant="titleLarge">
+          <Text style={{ color: "#64B244"  }} variant="titleLarge">
             de produit
           </Text>
         </Text>

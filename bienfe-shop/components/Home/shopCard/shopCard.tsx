@@ -10,9 +10,10 @@ interface Props {
   shop: any;
   getData: () => void;
   setSuccess: () => void;
+  onPress?: () => void; 
 }
 
-const ShopCard = ({ shop, getData, setSuccess }: Props) => {
+const ShopCard = ({ shop, getData, setSuccess ,onPress}: Props) => {
   const theme = useTheme();
   const [visible, setVisible] = React.useState(false);
   const [menuVisible, setMenuVisible] = React.useState(false);
@@ -75,7 +76,7 @@ const ShopCard = ({ shop, getData, setSuccess }: Props) => {
 
   return (
     <>
-      <Pressable onPress={handleView} style={styles.container}>
+     <Pressable onPress={onPress ?? handleView} style={styles.container}>
         <View style={styles.content}>
           <View style={styles.card}>
             <View style={styles.imageWrapper}>

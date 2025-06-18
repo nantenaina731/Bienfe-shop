@@ -18,7 +18,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const { https } = useHttps();
@@ -95,15 +95,21 @@ const Login = () => {
               name="email"
               label={" Email"}
               handleChange={handleChange}    
+              value={data.email}
                       
             />
           </View>
           <View style={{ marginTop: 10 }}>
-            <CustomInput
-              name="password"
-              label={" Mots de passe"}
-              handleChange={handleChange}
-            />
+          <CustomInput
+               name="password"
+               label="Mot de passe"
+               handleChange={handleChange}
+               secureTextEntry={!showPassword}
+               rightIcon={showPassword ? "eye-off" : "eye"}
+               onIconPress={() => setShowPassword(!showPassword)}
+               value={data.password}
+           />
+
           </View>
           </View>
           <View>

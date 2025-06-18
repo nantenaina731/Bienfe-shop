@@ -8,7 +8,6 @@ import useHttps from "@/services/useHttps";
 import Header from "../Home/Header/Header";
 import { useFocusEffect } from "@react-navigation/native";
 import Carts from "../Carts/Carts";
-
 const Shop = ({ setSuccess }: { setSuccess: any }) => {
   const [loading, setLoading] = React.useState(false);
   const [shops, setShops] = React.useState([] as any[]);
@@ -18,7 +17,6 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
   const getData = async () => {
     try {
       setLoading(true);
-      console.log("Fetching data...");
       const response = await https.get("/createshop");
       if (response?.data) {
         setShops(response.data);
@@ -80,7 +78,7 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
         {loading && <Loading />}
         {!loading && shops.length === 0 && (
           <Text style={styles.noShopsText} variant="labelSmall">
-            Aucune boutique créer pour le moment.
+            Aucune boutique créer pour le moment .
           </Text>
         )}
         {!loading && shops.length > 0 && (
@@ -89,16 +87,14 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
               Votre boutique :
             </Text>
             {shops.map((shopItem: any) => (
-              <TouchableOpacity
-                key={shopItem.id}
-                onPress={() => setSelectedShopId(shopItem.id)}
-              >
+             
                 <ShopCard
+                  key={shopItem.id}    
                   shop={shopItem}
                   setSuccess={setSuccess}
                   getData={getData}
+                  onPress={() => setSelectedShopId(shopItem.id)}
                 />
-              </TouchableOpacity>
             ))}
           </>
         )}

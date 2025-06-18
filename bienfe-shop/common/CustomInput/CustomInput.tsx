@@ -1,39 +1,46 @@
 import React, { useState } from "react";
-import {  StyleSheet,KeyboardTypeOptions } from "react-native";
+import { StyleSheet, KeyboardTypeOptions } from "react-native";
 import { TextInput, useTheme } from "react-native-paper";
-
 
 interface props {
   label: string;
   name: string;
-  value?: string | undefined;
-  handleChange: any;
+  value?: string;
+  handleChange: (name: string, value: string) => void;
   editable?: boolean;
   height?: number;
   fontSize?: number;
-  type?: any;
+  type?: KeyboardTypeOptions;
   mt?: number;
+
+  // Props optionnelles pour champ mot de passe
+  secureTextEntry?: boolean;
+  rightIcon?: string;
+  onIconPress?: () => void;
 }
 
 const CustomInput = ({
   label,
-  name = "email",
-  value = undefined,
+  name,
+  value = "",
   handleChange,
   editable = true,
   height,
   fontSize,
   type = "default",
-  mt
+  mt,
+  secureTextEntry,
+  rightIcon,
+  onIconPress
 }: props) => {
   const theme = useTheme();
-  const { secondary, primary } = theme.colors;
   const [isFocus, setIsFocus] = useState(false);
+
   const styles = StyleSheet.create({
     input: {
       fontSize: fontSize ?? 13,
-      backgroundColor: 'white',
-      borderColor: isFocus ? "#64B244": "#98A0A3",
+      backgroundColor: "white",
+      borderColor: isFocus ? "#64B244" : "#98A0A3",
       borderWidth: 1,
       borderRadius: 10,
       padding: 0,
@@ -44,18 +51,18 @@ const CustomInput = ({
       paddingHorizontal: 10,
     },
   });
+
   return (
     <TextInput
-      secureTextEntry={name == "password" || name == "confirm_password"}
+      secureTextEntry={secureTextEntry}
       placeholder={label}
       style={styles.input}
-      theme={{ 
+      theme={{
         roundness: 10,
-        colors:{primary:"#98A0A3"}
+        colors: { primary: "#98A0A3" },
       }}
       editable={editable}
       keyboardType={type}
-      // outlineStyle={{borderRadius: 20}}
       value={value}
       mode="flat"
       activeUnderlineColor="transparent"
@@ -63,7 +70,13 @@ const CustomInput = ({
       onFocus={() => setIsFocus(true)}
       onBlur={() => setIsFocus(false)}
       onChangeText={(text) => handleChange(name, text)}
+      right={
+        rightIcon ? (
+          <TextInput.Icon icon={rightIcon} onPress={onIconPress} />
+        ) : undefined
+      }
     />
   );
 };
+
 export default CustomInput;
