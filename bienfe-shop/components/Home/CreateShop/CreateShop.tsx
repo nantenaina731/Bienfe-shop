@@ -152,7 +152,7 @@ return(
             rounded
             width={"70%"}
             height={50}
-            text="Creer boutique"
+            text={ loading ? "Création ..." : "Créer boutique "}
             onPress={handleSubmit}
             disabled={loading}
           />

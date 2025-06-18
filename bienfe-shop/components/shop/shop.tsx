@@ -8,28 +8,29 @@ import useHttps from "@/services/useHttps";
 import Header from "../Home/Header/Header";
 import { useFocusEffect } from "@react-navigation/native";
 
-const Shop = () => {
+const Shop = ({ setSuccess }: { setSuccess: any }) => {
   const [loading, setLoading] = React.useState(false);
   const [shops, setShops] = React.useState([] as any[]);
   const { https } = useHttps();
 
+  const getData = async () => {
+    try {
+      setLoading(true);
+      console.log("Fetching data..."); 
+      const response = await https.get("/createshop");
+      if (response?.data) {
+        setShops(response.data);
+      }
+    } catch (error) {
+      console.log("Erreur lors du chargement des shops :", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useFocusEffect(
     React.useCallback(() => {
-      const fetchShops = async () => {
-        try {
-          setLoading(true);
-          const response = await https.get("/createshop");
-          if (response?.data) {
-            setShops(response.data);
-          }
-        } catch (error) {
-          console.log("Erreur lors du chargement des shops :", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchShops();
+      getData();
     }, [])
   );
 
@@ -39,10 +40,12 @@ const Shop = () => {
     },
     scrollContent: {
       padding: 10,
+      paddingBottom: 100,
     },
+    
     noShopsText: {
       color: "red",
-      marginTop: 20,
+      marginTop: 200,
       textAlign: "center",
     },
     textLabel: {
@@ -55,27 +58,26 @@ const Shop = () => {
 
   return (
     <Layout fullBody={true} isScroll={false}>
-      {/* Header FIXED */}
       <Header />
-
-      {/* Scrollable content */}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {loading && <Loading />}
-
         {!loading && shops.length === 0 && (
           <Text style={styles.noShopsText} variant="labelSmall">
-            Aucune boutique créée pour le moment
+            Aucune boutique créer pour le moment.
           </Text>
         )}
-
         {!loading && shops.length > 0 && (
           <>
             <Text style={styles.textLabel} variant="titleLarge">
               Votre boutique :
             </Text>
-
             {shops.map((shopItem: any) => (
-              <ShopCard key={shopItem.id} shop={shopItem} />
+              <ShopCard
+                key={shopItem.id}
+                shop={shopItem}
+                setSuccess={setSuccess}
+                getData={getData}
+              />
             ))}
           </>
         )}
