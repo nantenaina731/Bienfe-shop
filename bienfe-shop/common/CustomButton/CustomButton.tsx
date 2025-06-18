@@ -12,13 +12,13 @@ interface props {
   height?: any
 }
 
-const CustomButton = ({ mt, text, rounded, disabled, width, height,onPress }: props) => {
+const CustomButton = ({ mt, text, rounded,disabled ,width, height,onPress}: props) => {
   const theme = useTheme();
   const { primary } = theme.colors;
   
   const styles = StyleSheet.create({
     button: {
-      borderRadius: rounded ? 50 : 22,
+      borderRadius: rounded ? 50 : 7,
       width: width ?? "80%",
       paddingTop: 5,
       paddingBottom: 5,
@@ -38,7 +38,7 @@ const CustomButton = ({ mt, text, rounded, disabled, width, height,onPress }: pr
   });
 
   return (
-    <Pressable style={styles.button}  onPress={disabled? ()=> console.log('no press'):onPress}>
+    <Pressable style={styles.button} onPress={disabled ? () => console.log('No press') : onPress}>
       <Text variant="titleMedium" style={styles.connexion}>
         {text}
       </Text>

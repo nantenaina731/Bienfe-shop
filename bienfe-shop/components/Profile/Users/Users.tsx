@@ -62,7 +62,7 @@ const Users = ({ setSuccess }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Liste des employés
+          Liste des vendeurs
         </Text>
         <Pressable style={styles.add} onPress={() => setAddModal(true)}>
           <AntDesign name="adduser" size={20} color={"white"} />
@@ -72,6 +72,7 @@ const Users = ({ setSuccess }: props) => {
         <DataTable.Header>
           <DataTable.Title>Nom</DataTable.Title>
           <DataTable.Title>Créer le</DataTable.Title>
+          <DataTable.Title>Boutique</DataTable.Title>
         </DataTable.Header>
         {loading && <Loading />}
         {!loading && data.length == 0 && (
@@ -87,6 +88,7 @@ const Users = ({ setSuccess }: props) => {
                 {item.name + " " + item.last_name}
               </DataTable.Cell>
               <DataTable.Cell>{formatDateMinim(item.createdAt)}</DataTable.Cell>
+              <DataTable.Cell>{item.shop_name}</DataTable.Cell>
             </DataTable.Row>
           ))}
       </DataTable>

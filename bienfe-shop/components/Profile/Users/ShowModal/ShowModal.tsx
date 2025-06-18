@@ -68,7 +68,7 @@ const ShowModal = ({
           style={{ color: primary, fontWeight: "bold", textAlign: "center" }}
           variant="titleMedium"
         >
-          Information sur l'employé
+          Information sur le vendeur
         </Text>
         {userSelected && (
           <View>
@@ -101,6 +101,13 @@ const ShowModal = ({
                 {formatDate(userSelected.createdAt)}
               </Text>
             </Text>
+            <Text
+              style={{ color: "#000", fontWeight: "bold" }}
+              variant="titleMedium"
+            >
+              Boutique :<Text variant="titleMedium">
+                {userSelected.shop_name}     </Text>
+             </Text>
             <View style={styles.hr}></View>
             <Pressable
               onPress={() => setIsDelete(!isDelete)}
@@ -110,7 +117,7 @@ const ShowModal = ({
                 style={{ color: "red", textDecorationLine: "underline" }}
                 variant="titleMedium"
               >
-                Supprimer l'employé
+                Supprimer vendeur
               </Text>
               {isDelete ? (
                 <AntDesign name="up" color={"red"} size={15} />

@@ -11,8 +11,8 @@ const Loading = ({ top }: props) => {
   const { primary } = theme.colors;
 
   return (
-    <View style={{marginTop: top ?? 25, marginBottom: 10}}>
-      <ActivityIndicator size={"small"} animating={true} color={primary} />
+    <View style={{marginTop: top ?? 25, marginBottom: 35}}>
+      <ActivityIndicator size={"small"} animating={true} color={"#64B244"} />
     </View>
   );
 };

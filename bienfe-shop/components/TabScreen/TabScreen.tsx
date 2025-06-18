@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomNavigation, useTheme } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import useToken from "@/services/useToken";
 //import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 //import Ionicons from "react-native-vector-icons/Ionicons";
 //import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -14,10 +15,8 @@ import Shop from "../shop/shop";
 const Tab = createBottomTabNavigator();
 
 export default function TabScreen() {
- // const theme = useTheme();
-   // const { primary, secondary } = theme.colors;
- // const { token } = useToken();
-  //const isAdmin = token && token.type == "admin";
+  const { token } = useToken();
+  const isAdmin = token && token.type == "admin";
 
   return (
     <Tab.Navigator
@@ -28,12 +27,12 @@ export default function TabScreen() {
         <View
           style={{
             position: "absolute",
-            left:  75,
-            right: 75,
+            left: isAdmin? 99 : 75,
+            right: isAdmin?99: 75,
             bottom: 20,
             borderRadius: 50,
             overflow: "hidden",
-            height: 50,
+            height: 60,
             justifyContent: "center",
           }}
         >
@@ -68,7 +67,7 @@ export default function TabScreen() {
                 });
               }
             }}
-            renderIcon={({ route, focused, color }) => {
+            renderIcon={({ route, focused, color}) => {
               const { options } = descriptors[route.key];
               const iconBackgroundColor = focused ? "#64B244" : "transparent";
 
@@ -77,7 +76,7 @@ export default function TabScreen() {
                   <View
                     style={{
                       backgroundColor: iconBackgroundColor,
-                      borderRadius: 25, // Adjust this value as needed for the roundness
+                      borderRadius: 27, // Adjust this value as needed for the roundness
                       alignItems: "center",
                       justifyContent: "center",
                       width: 33,

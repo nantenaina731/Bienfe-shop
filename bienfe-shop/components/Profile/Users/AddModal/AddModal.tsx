@@ -19,6 +19,7 @@ const initialData = {
   last_name: "",
   email: "",
   password: "",
+  shop_name:"",
   confirm_password: null,
 };
 
@@ -49,6 +50,8 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
       data.last_name.trim() != "" &&
       data.email.trim() != "" &&
       data.password.trim() != ""
+      
+
     ) {
       try {
         setSendLoading(true);
@@ -127,17 +130,34 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Email{" "}
+          Boutique {""}
         </Text>
         <CustomInput
-          name="email"
-          value={data.email}
-          label={"Prenom..."}
+          name="shop_name"
+          label={"vendeur a..."}
+          value={data.shop_name}
           handleChange={handleChange}
           height={45}
           fontSize={14}
           mt={0}
         />
+        
+        <Text
+          style={{ color: "#000", fontWeight: "bold" }}
+          variant="titleMedium"
+        >
+          Email {""}
+        </Text>
+        <CustomInput
+          name="email"
+          value={data.email}
+          label={"email..."}
+          handleChange={handleChange}
+          height={45}
+          fontSize={14}
+          mt={0}
+        />
+        
         <Text
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
@@ -146,7 +166,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="password"
-        
           label={"Mot de passe"}
           handleChange={handleChange}
           height={45}
@@ -161,7 +180,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="confirm_password"
-        
           label={"Confirmation"}
           handleChange={handleChange}
           height={45}

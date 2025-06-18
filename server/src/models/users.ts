@@ -40,7 +40,10 @@ const model = {
                     },
                     {
                         last_name: { contains: query }
-                    }
+                    },
+                    {
+                        shop_name: { contains: query }
+                    },
                 ]
             }
         })
@@ -59,28 +62,29 @@ const model = {
 
         return result
     },
-    create: async (name:string, last_name:string, email:string, type: UserType | undefined, password:string) => {
+    create: async (name:string,last_name:string, email:string,shop_name:string ,password:string ,type: UserType | undefined ) => {
 
         const result = await prisma.users.create({
             data: {
-                name,
+                name,              
                 last_name,
-                email, 
+                shop_name, 
+                email,
                 password,
-                type
-              },
+                              },
         })
 
         return result
     },
-    update:  async (name:string, last_name:string, password:string, id:number) => {
+    update:  async (name:string, last_name:string, password:string, shop_name:string,id:number,) => {
 
         const result = await prisma.users.update({
             where: { id: Number(id) },
             data: {
                 name,
                 last_name,
-                password
+                password,
+                shop_name
             },
         })
 
@@ -92,7 +96,8 @@ const model = {
             where: { id: Number(id) },
             data: {
                 name,
-                last_name
+                last_name,
+                
             },
         })
 

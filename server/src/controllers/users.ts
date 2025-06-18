@@ -113,7 +113,7 @@ const controller = {
         }
     },
     create: async (req: Request, res: Response) => {
-        let { name, last_name, email, password, type } = req.body
+        let { name, last_name, email,shop_name, password, type ,} = req.body
 
         try {
             let find = await model.getByEmail(email)
@@ -127,7 +127,7 @@ const controller = {
                         res.status(403).send("Registration failed")
                     }
                     else {
-                        let user = await model.create(name, last_name, email, type, hash)
+                        let user = await model.create(name, last_name, email,shop_name, type, hash)
                         if(user) {
                             let token = generateToken(user.id, user.email)
                             let response  = {
@@ -147,7 +147,7 @@ const controller = {
         }
     },
     update: async (req: Request, res: Response) => {
-        let { name, last_name, password } = req.body
+        let {name, last_name, password,shop_name } = req.body
         let id = parseInt(req.body.id)
         try { 
             let saltRounds = 10
@@ -156,7 +156,7 @@ const controller = {
                     res.status(403).send("Registration failed")
                 }
                 else {
-                    let data = await model.update(name, last_name, hash, id)
+                    let data = await model.update(name, last_name,shop_name, hash,id)
                     res.status(200).send(data)
                 }
             })

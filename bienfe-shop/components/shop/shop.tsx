@@ -1,26 +1,89 @@
-import Layout from "@/common/Layout";
-import Header from "../Home/Header/Header";
+import React from "react";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { Text } from "react-native-paper";
-import { View } from "react-native";
-const Shop = () => {
-    return (
-      <>
+import Loading from "@/common/Loading";
+import ShopCard from "../Home/shopCard/shopCard";
+import Layout from "@/common/Layout";
+import useHttps from "@/services/useHttps";
+import Header from "../Home/Header/Header";
+import { useFocusEffect } from "@react-navigation/native";
 
-      <Layout
-       fullBody={true}
-       barDark={true}
-      // isScroll={step == 2 ? false : true}
-        >
-             <Header/>
-             
-             <View>
-              <Text style={{color:"#64B244", marginLeft:15,fontSize:20,marginTop:-70}} variant="titleMedium">Votre boutique :</Text>
-             </View>
-             <Text style={{color:"green",textAlign:"center",marginTop:100}}>Aucune boutique creer pour le moment.</Text>
-        </Layout>
-      </>
-    );
+const Shop = ({ setSuccess }: { setSuccess: any }) => {
+  const [loading, setLoading] = React.useState(false);
+  const [shops, setShops] = React.useState([] as any[]);
+  const { https } = useHttps();
+
+  const getData = async () => {
+    try {
+      setLoading(true);
+      console.log("Fetching data..."); 
+      const response = await https.get("/createshop");
+      if (response?.data) {
+        setShops(response.data);
+      }
+    } catch (error) {
+      console.log("Erreur lors du chargement des shops :", error);
+    } finally {
+      setLoading(false);
+    }
   };
-  
-  export default Shop;
-  
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getData();
+    }, [])
+  );
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    scrollContent: {
+      padding: 10,
+      paddingBottom: 100,
+    },
+    
+    noShopsText: {
+      color: "red",
+      marginTop: 200,
+      textAlign: "center",
+    },
+    textLabel: {
+      color: "#64B244",
+      fontWeight: "bold",
+      marginTop: 10,
+      marginBottom: 10,
+    },
+  });
+
+  return (
+    <Layout fullBody={true} isScroll={false}>
+      <Header />
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {loading && <Loading />}
+        {!loading && shops.length === 0 && (
+          <Text style={styles.noShopsText} variant="labelSmall">
+            Aucune boutique créer pour le moment.
+          </Text>
+        )}
+        {!loading && shops.length > 0 && (
+          <>
+            <Text style={styles.textLabel} variant="titleLarge">
+              Votre boutique :
+            </Text>
+            {shops.map((shopItem: any) => (
+              <ShopCard
+                key={shopItem.id}
+                shop={shopItem}
+                setSuccess={setSuccess}
+                getData={getData}
+              />
+            ))}
+          </>
+        )}
+      </ScrollView>
+    </Layout>
+  );
+};
+
+export default Shop;

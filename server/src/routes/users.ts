@@ -1,5 +1,5 @@
 import express from "express"
-import { isValid } from "../midlleware/middleware"
+import { isValid } from "../../midlleware/middleware"
 import controller from "../controllers/users"
 
 const router = express.Router()

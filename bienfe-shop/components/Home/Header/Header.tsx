@@ -13,7 +13,6 @@ const Header = () => {
         source={require("../../../assets/images/logo.png")}
         style={styles.logo}
       />
-
           <IconButton
             icon={() => (
               <FontAwesome name="user-circle" size={30} color={"black"} />
@@ -30,9 +29,16 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: 210,
-    position: "relative",
+    backgroundColor: "#fff", 
+    zIndex: 10,
+    elevation: 4, 
+    shadowColor: "#000", 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    height:90,
+    borderBottomStartRadius:9,
+    borderBottomEndRadius:9
   },
   logo: {
     width: 120,
@@ -46,7 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-
 });
 
 export default Header;

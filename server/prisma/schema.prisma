@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  
 }
 
 datasource db {
@@ -20,7 +21,7 @@ model Users {
   email      String       @unique
   password   String?
   type       UserType     @default(vendeur)
-  
+  shop_name  String?    @db.VarChar(255) // Stocker le nom à part aussi
 }
 
 enum UserType {
@@ -28,3 +29,39 @@ enum UserType {
   vendeur
   gestionnaire
 }
+
+  model Shop {
+  id     Int    @id @default(autoincrement())
+  name   String
+  isDelete   Boolean      @default(false)
+  logo   Json?
+  products  Products[]
+  ventes    Vente[]
+}
+model Products {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  name        String   @db.VarChar(255)
+  description String?  @db.Text()
+  image       String?  @db.Text()
+  quantity    Int      @default(0)
+  isDelete    Boolean  @default(false)
+  price       Float
+  shopId      Int
+  Vente       Vente[]
+  shop        Shop  @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+}
+model Vente {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  quantity    Int
+  product_id  Int
+  amount      Float
+  totalAmount Float    @default(0)
+  shopId      Int
+  product     Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  shop        Shop  @relation(fields: [shopId], references: [id], onDelete: Cascade)
+}
+
+

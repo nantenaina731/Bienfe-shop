@@ -1,3 +1,4 @@
+
 import CustomButton from "@/common/CustomButton/CustomButton";
 import CustomInput from "@/common/CustomInput/CustomInput";
 import ErrorView from "@/common/ErrorView/ErrorView";
@@ -7,11 +8,11 @@ import useToken from "@/services/useToken";
 import { userToSend } from "@/types/types";
 import { router } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, View,Image,TouchableOpacity } from "react-native";
+import { StyleSheet, View,Image,TouchableOpacity ,Keyboard} from "react-native";
 import { Text } from "react-native-paper";
 
 const Login = () => {
-  const[loading,setloading]=useState(false)
+  const[loading,setLoading]=useState(false)
   
   const [data, setData] = useState<userToSend>({
     email: "",
@@ -29,13 +30,15 @@ const Login = () => {
       [name]: value,
     });
   };
-  const handleSubmit =async( ) => {
+  const handleSubmit = async () => {
     if(data.email.trim() && data.password.trim()) {
       try {
-        setloading(true);
+        setLoading(true);
         setError(null);
+         
         let toSend: userToSend = data;
         toSend.email = toSend.email.trim();
+       
         let response = await https.post("/users/login", toSend);
         if (response) {
           let res = response.data
@@ -43,11 +46,8 @@ const Login = () => {
             ...res.user,
             token: res.token
           })
-        
           router.replace('/tabs')
-         
         }
-        
       } catch (error: any) {
         setError(error);
         if (error.response) {
@@ -61,24 +61,27 @@ const Login = () => {
           console.log("Error message:", error.response);
         }
       } finally {
-        setloading(false);
+        setLoading(false);
       }
     }
     else {
       setError("error");
       setErrorMessage("Vous devez completer les champs");
     }
+    
   };
+  
 
   return (
     <Layout isScroll={true}>
       <View style={styles.container}>
         <Image  
         source={require("../assets/images/logo.png")}
-        style={{top:-60,marginLeft:"24%"}}
+        style={{top:-95,marginLeft:"31%", width: 120,
+        height: 22,}}
         />
         <Text style={styles.firstTitle} variant="titleMedium">
-          Bonjour !
+          Bonjour et Bienvenue!
         </Text>
         <Text style={styles.secondTitle} >
           Pour commencer votre journées,veuillez vous-connectez
@@ -91,7 +94,8 @@ const Login = () => {
             <CustomInput
               name="email"
               label={" Email"}
-              handleChange={handleChange}
+              handleChange={handleChange}    
+                      
             />
           </View>
           <View style={{ marginTop: 10 }}>
@@ -102,13 +106,17 @@ const Login = () => {
             />
           </View>
           </View>
-          <CustomButton
-            mt={25}
-            rounded={false}
-            text={ loading ? " Chargement...":"connexion"}
-            onPress={handleSubmit}
-            disabled={loading}
-          />
+          <View>
+            <CustomButton
+              mt={32}
+              width="100%"
+              rounded={false}
+              text={ loading ? "Chargement..." : "Connexion"}
+              disabled={loading}
+              onPress={handleSubmit}
+            />
+          </View>
+           {error && <ErrorView errorMessage={errorMessage} />}
           </View>
             </View>
             
@@ -119,11 +127,11 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: "25%",
+    marginTop: "50%",
   },
   firstTitle: {
     fontWeight: "500",
-    fontSize: 18,
+    fontSize: 16,
     top: '-7%',
     color:"#64B244",
     textAlign:"center"
@@ -147,8 +155,8 @@ const styles = StyleSheet.create({
   },
   logo:{
     width:"100%",
-    height:"14%",
-    top:"-10%",
+    height:"13%",
+    top:"-9%",
     left:"31%",
     fontSize:19,
     color:"#0C1D32",
