@@ -62,14 +62,15 @@ const createStyles = (theme: any, active?: boolean) =>
       fontWeight: "bold",
     },
     badge: {
-      color: "black",
+      color: active? "white": "#64B244" ,
       padding: 5,
       borderWidth: 1,
-      backgroundColor: active ? theme.colors.primary : "white",
+      backgroundColor: active ? "#64B244" : "white",
       paddingTop: 5,
       borderRadius: 5,
       justifyContent: "center",
       display: "flex",
+      borderColor: "#64B244",
     },
   });
 

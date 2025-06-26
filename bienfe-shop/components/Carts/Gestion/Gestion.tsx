@@ -64,7 +64,7 @@ const Gestion = ({ setSuccess }: props) => {
           Liste des produits
         </Text>
         <Pressable style={styles.add} onPress={() => setAddModal(true)}>
-          <MaterialIcons name="add-box" size={20} color={"white"} />
+          <MaterialIcons name="add-box" size={20} color={"white"}/>
         </Pressable>
       </View>
       <DataTable>
@@ -124,7 +124,7 @@ const createStyles = (theme: any) =>
       height: 30,
     },
     add: {
-      backgroundColor: theme.colors.primary,
+      backgroundColor: "#64B244",
       padding: 5,
       borderRadius: 3,
     },

@@ -51,7 +51,6 @@ const years = [
   "2032",
 ];
 
-//
 
 const Carts = ({ setSuccess ,shopId}: props) => {
   const theme = useTheme();

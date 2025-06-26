@@ -14,8 +14,8 @@ export default function RootLayout() {
         <Stack.Screen name="tabs" options={{ headerShown: false }} />      
         <Stack.Screen name="profile" options={{ headerShown: false }} />
         <Stack.Screen name="carts" options={{ headerShown: false }} />
-      
-          </Stack>
+        <Stack.Screen name="shop" options={{ headerShown: false }} />
+        </Stack>
       </PaperProvider>
       </Provider>
   );

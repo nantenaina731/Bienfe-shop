@@ -8,6 +8,7 @@ import useHttps from "@/services/useHttps";
 import Header from "../Home/Header/Header";
 import { useFocusEffect } from "@react-navigation/native";
 import Carts from "../Carts/Carts";
+import ShopHeader from "@/common/Layout/shopHeader/shopHeader"
 const Shop = ({ setSuccess }: { setSuccess: any }) => {
   const [loading, setLoading] = React.useState(false);
   const [shops, setShops] = React.useState([] as any[]);
@@ -63,9 +64,7 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
   if (selectedShopId !== null) {
     return (
       <>
-        <TouchableOpacity onPress={() => setSelectedShopId(null)}>
-          <Text style={styles.returnText}>← Retour aux boutiques</Text>
-        </TouchableOpacity>
+        <ShopHeader hideProfile />
         <Carts setSuccess={setSuccess} shopId={selectedShopId} />
       </>
     );
