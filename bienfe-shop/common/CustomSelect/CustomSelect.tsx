@@ -1,17 +1,18 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { PaperSelect } from "react-native-paper-select";
+import { Menu, TextInput, Button, useTheme } from "react-native-paper";
 
 type dataForm = { _id: string; value: string }[];
 
 interface props {
   data: dataForm;
   setSelectedValue: Dispatch<SetStateAction<any>>;
-  defaultValue: {
+  defaultValue:
+    | {
         _id: string;
         value: string;
       }
-  | undefined;
+    | undefined;
   label?: string;
 }
 
@@ -21,70 +22,66 @@ const CustomSelect = ({
   defaultValue,
   label,
 }: props) => {
-  const [gender, setGender] = useState({
-    value: defaultValue ? defaultValue.value : "",
-    list: data,
-    selectedList: defaultValue ? [defaultValue] : [],
-    error: "",
-  });
+  const theme = useTheme();
+  const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState(defaultValue ?? null);
 
   useEffect(() => {
-    setGender({
-      value: defaultValue ? defaultValue.value : "",
-      list: data,
-      selectedList: defaultValue ? [defaultValue] : [],
-      error: "",
-    });
+    setSelected(defaultValue ?? null);
   }, [data]);
 
+  const openMenu = () => setVisible(true);
+  const closeMenu = () => setVisible(false);
+
+  const onSelect = (item: any) => {
+    setSelected(item);
+    setSelectedValue(item);
+    closeMenu();
+  };
+
   return (
-    <View style={styles.selectContainer}>
-      <PaperSelect
-        label={label ?? "Type de voiture"}
-        value={label ? gender.value.split('(')[0] : gender.value}
-        onSelection={(value: any) => {
-          setGender({
-            ...gender,
-            value: value.text,
-            selectedList: value.selectedList,
-            error: "",
-          });
-          setSelectedValue(value.selectedList[0]);
-        }}
-        arrayList={[...gender.list]}
-        selectedArrayList={gender.selectedList}
-        errorText={gender.error}
-        multiEnable={false}
-        dialogTitleStyle={{ color: "black" }}
-        dialogStyle={styles.dialogStyle}
-        hideSearchBox={true}
-        textInputStyle={styles.textInputStyle}
-        theme={{
-          colors: {
-            placeholder: "black",
-          },
-        }}
-      />
+    <View style={styles.container}>
+      <Menu
+        visible={visible}
+        onDismiss={closeMenu}
+        anchor={
+          <TextInput
+            label={label ?? "Sélectionner"}
+            value={selected ? selected.value : ""}
+            style={styles.input}
+            onFocus={openMenu}
+            mode="flat"
+            right={<TextInput.Icon icon="menu-down"/>}
+            theme={{
+              colors: {
+                primary: "#64B244", 
+                text: "#000",
+              },
+            }}
+          />
+        }
+      >
+        {data.map((item) => (
+          <Menu.Item
+            key={item._id}
+            onPress={() => onSelect(item)}
+            title={item.value}
+          />
+        ))}
+      </Menu>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  selectContainer: {
+  container: {
+    width: "100%",
+    zIndex: 100, 
+  },
+  input: {
     backgroundColor: "#fff",
     height: 45,
-    borderRadius: 7,
-    overflow: "hidden",
-  },
-  textInputStyle: {
-    height: 45,
-    backgroundColor: "#fff",
-  },
-  dialogStyle: {
-    backgroundColor: "#e0e0e0",
-    borderRadius: 10,
-    paddingTop: 15,
-    paddingBottom: 15,
+    borderRadius:5,
   },
 });
 

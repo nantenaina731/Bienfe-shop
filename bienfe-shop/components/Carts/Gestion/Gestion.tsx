@@ -12,9 +12,10 @@ import ErrorView from "@/common/ErrorView/ErrorView";
 
 interface props {
   setSuccess: any;
+  shopId:number
 }
 
-const Gestion = ({ setSuccess }: props) => {
+const Gestion = ({ setSuccess,shopId }: props) => {
   const theme = useTheme();
   const { primary } = theme.colors;
   const [data, setData] = useState([] as any);
@@ -31,7 +32,7 @@ const Gestion = ({ setSuccess }: props) => {
     try {
       setErrorMessage(null);
       setLoading(true);
-      let response = await https.get('/products');
+      let response = await https.post('/products/filter', { shopId });
       if (response) {
         setData(response.data);
       }
@@ -104,6 +105,7 @@ const Gestion = ({ setSuccess }: props) => {
         visible={addModal}
         setVisible={setAddModal}
         getData={getData}
+        shopId={shopId}
       />
     </View>
   );

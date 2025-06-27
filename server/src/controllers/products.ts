@@ -44,15 +44,16 @@ const controller = {
             name,
             quantity,
             price,
-            shopId
+            shopId,
+            product_id
          } = req.body
 
         try {
             let data = await model.create(
                 name,
+                parseInt(product_id),
                 parseInt(quantity),
                 parseFloat(price),
-                parseInt(shopId)
             )
             res.status(200).send(data)
         }
@@ -72,7 +73,7 @@ const controller = {
             let data = await model.update(
                 name,
                 parseInt(quantity),
-               parseFloat (price),
+                parseFloat (price),
                 id
             )
             res.status(200).send(data)
@@ -94,6 +95,22 @@ const controller = {
             res.status(500).send(error.message)
         }
     },
+    filter: async (req: Request, res: Response) => {
+        const { shopId } = req.body;
+        try {
+          if (!shopId) {
+            res.status(400).send("shopId manquant");
+            return;  
+          }
+          const data = await model.getAllByShop(parseInt(shopId));
+          res.status(200).send(data);
+        } catch (error: any) {
+          console.log(error);
+          res.status(500).send(error.message);
+        }
+      }
+      
+      
 }
 
 export default controller

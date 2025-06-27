@@ -47,7 +47,7 @@ const Home = () => {
           },
         }}
       >
-       Votre boutique a bien été enregistrée.
+       Votre boutique a bien été creer.
       </Snackbar>
   
     </>
