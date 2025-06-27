@@ -12,6 +12,7 @@ interface props {
   setVisible: any;
   setSuccess: any;
   getData: any;
+  shopId:number;
 }
 
 const initialData = {
@@ -20,7 +21,7 @@ const initialData = {
   quantity: "",
 };
 
-const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
+const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) => {
   const hideModal = () => setVisible(false);
   const theme = useTheme();
   const { primary } = theme.colors;
@@ -45,7 +46,11 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
     ) {
       try {
         setSendLoading(true);
-        const toSend: any = data;
+        const toSend: any = {
+        ...data,
+          shopId
+        };
+        
         const response = await https.post("/products", toSend);
         if (response) {
           setVisible(false);
@@ -104,6 +109,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         <CustomInput
           name="price"
           label={""}
+          value={data.price}
           handleChange={handleChange}
           type={"numeric"}
           height={45}
@@ -121,6 +127,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           name="quantity"
           label={""}
           type={"numeric"}
+          value={data.quantity}
           handleChange={handleChange}
           height={45}
           fontSize={14}

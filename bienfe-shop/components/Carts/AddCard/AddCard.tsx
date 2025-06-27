@@ -15,7 +15,7 @@ let initialValue = {
   quantity: null,
 };
 
-const AddCard = ({ setDailyData, toggleSnackBar, getDailySpent }: any) => {
+const AddCard = ({ setDailyData, toggleSnackBar, getDailySpent,shopId }: any) => {
   const theme = useTheme();
   const { primary } = theme.colors;
   const [data, setData] = useState(initialValue);
@@ -41,7 +41,7 @@ const AddCard = ({ setDailyData, toggleSnackBar, getDailySpent }: any) => {
   const getProducts = async () => {
     try {
       setLoading(true);
-      let response = await https.get("/products");
+      let response = await https.get(`/products?shopId=${shopId}`);
       if (response) {
         const allProduct: [] = response.data;
         const dataSelect = allProduct.map(({ id, name, price, quantity }) => ({
@@ -91,6 +91,7 @@ const AddCard = ({ setDailyData, toggleSnackBar, getDailySpent }: any) => {
             oldQuantity: selectedValue.quantity,
             quantity: parseInt(data.quantity),
             amount: selectedValue.price,
+            shopId:shopId
           };
           let response = await https.post("/vente", toSend);
           if (response) {
@@ -131,7 +132,7 @@ const AddCard = ({ setDailyData, toggleSnackBar, getDailySpent }: any) => {
         {!loading && (
           <>
             <View style={styles.flexView}>
-              <View style={{ width: "50%", paddingRight: 2 }}>
+              <View style={{ width: "50%", paddingRight: 3 }}>
                 <View style={{ marginTop: 10 }}>
                   <CustomSelect
                     label={"Produit"}
@@ -145,6 +146,7 @@ const AddCard = ({ setDailyData, toggleSnackBar, getDailySpent }: any) => {
                 <CustomInput
                   name="quantity"
                   type="numeric"
+                  value={data.quantity ?? ""}
                   label={"Quantité"}
                   handleChange={handleChange}
                   height={45}

@@ -63,7 +63,8 @@ const model = {
         name: string,
         quantity: number,
         price: number,
-        shopId:number
+        shopId:number,
+        
     ) => {
 
         const result = await prisma.products.create({

@@ -1,9 +1,8 @@
 import Layout from "@/common/Layout";
-import React, { useCallback, useEffect,useState } from "react";
-import { StyleSheet, View,TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import AddCard from "./AddCard/AddCard";
-import AppHeader from "@/common/Layout/Header";
-import { Snackbar, Text ,useTheme} from "react-native-paper";
+import { Snackbar, Text, useTheme } from "react-native-paper";
 import useHttps from "@/services/useHttps";
 import Loading from "@/common/Loading";
 import ErrorView from "@/common/ErrorView/ErrorView";
@@ -15,9 +14,7 @@ import useToken from "@/services/useToken";
 import Menus from "./Menus/Menus";
 import { productPage } from "@/types/types";
 import Gestion from "./Gestion/Gestion";
-
 import ShowModify from "./modify/ShowModify";
-import { useFocusEffect } from "expo-router";
 
 interface props {
   setSuccess: (value: boolean) => void;
@@ -25,80 +22,52 @@ interface props {
 }
 
 const months = [
-  "Janvier",
-  "Février",
-  "Mars",
-  "Avril",
-  "Mais",
-  "Juin",
-  "Juillet",
-  "Aout",
-  "Septembre",
-  "Octobre",
-  "Novembre",
-  "Decembre",
+  "Janvier", "Février", "Mars", "Avril", "Mais", "Juin",
+  "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre",
 ];
 
 const years = [
-  "2024",
-  "2025",
-  "2026",
-  "2027",
-  "2028",
-  "2029",
-  "2030",
-  "2031",
-  "2032",
+  "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032",
 ];
 
-//
-
-const Carts = ({ setSuccess ,shopId}: props) => {
+const Carts = ({ setSuccess, shopId }: props) => {
   const theme = useTheme();
-  const [visible, setVisible] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-  const [data, setData] = React.useState([] as any);
-  const [totalAmount, setTotalAmount] = React.useState<number>(0);
-  const [loading, setLoading] = React.useState(false);
+  const [visible, setVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [data, setData] = useState([] as any[]);
+  const [loading, setLoading] = useState(false);
   const [showModify, setShowModify] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  
+
   const { https } = useHttps();
-  let actualDate = new Date();
-  const [selectedDate, setSelectedDate] = React.useState<
-    number | string | null
-  >("Tout");
-  const [selectedMonth, setSelectedMonth] = React.useState<string | null>(
+  const actualDate = new Date();
+  const [selectedDate, setSelectedDate] = useState<number | string | null>("Tout");
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(
     months[actualDate.getMonth()]
   );
-  const [selectedYear, setSelectedYear] = React.useState<string | null>(
+  const [selectedYear, setSelectedYear] = useState<string | null>(
     String(actualDate.getFullYear())
   );
-  const [activePage, setActivePage] =
-    React.useState<productPage>("Vente de produit");
+  const [activePage, setActivePage] = useState<productPage>("Vente de produit");
   const { token } = useToken();
-  const isAdmin = token.type == "admin";
+  const isAdmin = token.type === "admin";
 
   const toggleSnackBar = () => setVisible(!visible);
   const onDismissSnackBar = () => setVisible(false);
 
-  //recue des donner
   const getData = async () => {
     try {
       setErrorMessage(null);
       setLoading(true);
-      let response = await https.post(`/vente/filter`, {
+      const response = await https.post(`/vente/filter`, {
         day: selectedDate,
         month: months.indexOf(String(selectedMonth)),
         year: selectedYear,
-        shopId,
+        shopId: shopId,
       });
       if (response) {
         const res = response.data;
-        let total = 0;
-        res.map((daily: any) => (total += daily.totalAmount));
-        setTotalAmount(total);
-        setData(res);
+        setData(res); // on ne calcule plus le total ici
       }
     } catch (error) {
       console.log(error);
@@ -107,44 +76,52 @@ const Carts = ({ setSuccess ,shopId}: props) => {
       setLoading(false);
     }
   };
- 
 
   useEffect(() => {
-    getData();// appel de la fonctions  getData
-  }, [selectedMonth, selectedDate, selectedYear,shopId]);
+    getData();
+  }, [selectedMonth, selectedDate, selectedYear, shopId]);
+
+  // Filtrer et regrouper les ventes par produit
+  const filteredData = data.filter((item: any) => item.shopId === shopId);
+
+  const groupedData = filteredData.reduce((acc: any[], item: any) => {
+    const existing = acc.find(i => i.product_id === item.product_id);
+    if (existing) {
+      existing.quantity += item.quantity;
+      existing.totalAmount += item.totalAmount;
+    } else {
+      acc.push({ ...item });
+    }
+    return acc;
+  }, []);
+
+  // Calcul du total
+  const total = groupedData.reduce((sum, item) => sum + item.totalAmount, 0);
 
   const show = (id: any) => {
-    if(isAdmin) {
+    if (isAdmin) {
       setShowModify(true);
       setSelectedProduct(id);
     }
   };
 
- 
-
   return (
     <>
       <Layout fullBody={true} barDark={true} isScroll={true}>
-        <View
-          style={{
-            padding: 10,
-            marginTop: 15,
-          }}
-        >
-          {isAdmin && (
-            <Menus activePage={activePage} setActivePage={setActivePage} />
-          )}
-          {activePage == "Vente de produit" ? (
+        <View style={{ padding: 10, marginTop: 15 }}>
+          {isAdmin && <Menus activePage={activePage} setActivePage={setActivePage} />}
+          {activePage === "Vente de produit" ? (
             <>
               <AddCard
                 setDailyData={setData}
                 toggleSnackBar={toggleSnackBar}
                 getDailySpent={getData}
+                shopId={shopId}
               />
 
               <View style={{ marginTop: 5, paddingLeft: 25 }}>
                 <Text style={{ fontWeight: "bold" }} variant="titleLarge">
-                  Vente enregistrés
+                  Vente enregistrées
                 </Text>
               </View>
 
@@ -159,36 +136,37 @@ const Carts = ({ setSuccess ,shopId}: props) => {
 
               <View style={{ paddingLeft: 5, margin: 5 }}>
                 <Text variant="titleMedium">
-                  Vente total: {formatMoney(totalAmount) + " MGA"}
+                  Vente total: {formatMoney(total)} MGA
                 </Text>
               </View>
 
               {errorMessage && <ErrorView errorMessage={errorMessage} />}
 
               <View style={{ marginTop: 10, marginBottom: 100 }}>
-                
-                {!loading && data.length == 0 && (
+                {!loading && groupedData.length === 0 && (
                   <Nodata color="#000" text="Pas de données" />
                 )}
-               
+
                 {!loading &&
-                  data &&
-                  
-                  data.map((item: any) => (
-                    <TouchableOpacity key={item.id} onPress={() => show(item)} >
+                  groupedData.length > 0 &&
+                  groupedData.map((item: any) => (
+                    <TouchableOpacity
+                      key={`${item.product_id}-${item.createdAt}`}
+                      onPress={() => show(item)}
+                    >
                       <CartsItem type={item} />
                     </TouchableOpacity>
-                  ))
-                  }
+                  ))}
+
                 {loading && <Loading />}
-              
               </View>
             </>
           ) : (
-            <Gestion setSuccess={setVisible} />
+            <Gestion setSuccess={setVisible} shopId={shopId!} />
           )}
         </View>
       </Layout>
+
       <ShowModify
         selected={selectedProduct}
         visible={showModify}
@@ -196,14 +174,11 @@ const Carts = ({ setSuccess ,shopId}: props) => {
         setSuccess={setSuccess}
         getData={getData}
       />
-        
+
       <Snackbar
         visible={visible}
         onDismiss={onDismissSnackBar}
-        style={{
-          backgroundColor: "#52977e",
-          marginBottom: 80,
-        }}
+        style={{ backgroundColor: "#52977e", marginBottom: 80 }}
         elevation={0}
         action={{
           label: "Valider",
@@ -212,7 +187,7 @@ const Carts = ({ setSuccess ,shopId}: props) => {
           },
         }}
       >
-        L'information a bien été enregistré
+        L'information a bien été enregistrée
       </Snackbar>
     </>
   );

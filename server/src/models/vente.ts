@@ -54,28 +54,34 @@ const model = {
         return result
     },
 
-    filter: async (startOfDay: Date, endOfDay: Date) => {
-        const result = await prisma.vente.findMany({
-            where: {
-                createdAt: {
-                    gte: startOfDay,
-                    lt: endOfDay,
-                },
+    filter: async (startOfDay: Date, endOfDay: Date, shopId?: number) => {
+        const whereClause: any = {
+            createdAt: {
+                gte: startOfDay,
+                lt: endOfDay,
             },
+        };
+        if (shopId) {
+            whereClause.shopId = shopId;
+        }
+    
+        const result = await prisma.vente.findMany({
+            where: whereClause,
             include: {
                 product: {
                     select: {
-                        name: true
-                    }
-                }
+                        name: true,
+                    },
+                },
             },
             orderBy: {
-                id: "desc"
-            }
+                id: "desc",
+            },
         });
-        return result
+    
+        return result;
     },
-
+    
     update: async (
         createdAt: Date,
         quantity: number,

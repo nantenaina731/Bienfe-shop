@@ -9,5 +9,6 @@ router.get("/get-actual-qty/:id", isValid, controller.actualQty)
 router.post("/", isValid, controller.create)
 router.put("/", isValid, controller.update)
 router.delete("/:id", isValid, controller.delete)
+router.post("/filter", isValid, controller.filter);
 
 export default router

@@ -94,7 +94,7 @@ const ShowModify = ({
   return (
     <Portal>
       <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.container}>
-        <Text style={{ color: primary, fontWeight: "bold", textAlign: "center" }} variant="titleMedium">
+        <Text style={{ color:"#64B244", fontWeight: "bold", textAlign: "center" }} variant="titleMedium">
           Information sur le produit
         </Text>
         {selected && (
