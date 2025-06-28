@@ -73,7 +73,6 @@ const ShopModify = ({
       if (error.response) {
         setErrorMessage("Une érreur s'est produite");
       } else if (error.request) {
-        console.log(error.request);
         setErrorMessage("Request error");
         console.log("Error request:", error.request);
       } else {
@@ -84,7 +83,7 @@ const ShopModify = ({
       setSendLoading(false);
     }
   };
-
+//for edit
   const handleSubmit = async () => {
     setErrorMessage(null);
     if (data.name) {
