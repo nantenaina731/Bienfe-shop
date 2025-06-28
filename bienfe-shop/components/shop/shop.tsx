@@ -82,7 +82,7 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
       <>
       <View style={styles.header} >
        <Ionicons style={styles.icon} name="arrow-back" size={28} color="black" onPress={() => setSelectedShopId(null)} />
-       <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft:"79%" }}>
+       <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft:"79%" }}>
           {selectedShopName}
         </Text>
         <Ionicons style={styles.shopIcon} name="storefront" size={28} color="#64B244"/>

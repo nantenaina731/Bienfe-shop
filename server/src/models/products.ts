@@ -72,7 +72,9 @@ const model = {
                 name,
                 quantity,
                 price,
-                shopId,
+                shop: {
+                    connect: { id: shopId }
+                }
             },
         })
 

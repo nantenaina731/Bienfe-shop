@@ -42,18 +42,18 @@ const controller = {
     create: async (req: Request, res: Response) => {
         let { 
             name,
-            quantity,
             price,
+            quantity,
             shopId,
-            product_id
+        
          } = req.body
 
         try {
             let data = await model.create(
                 name,
-                parseInt(product_id),
                 parseInt(quantity),
                 parseFloat(price),
+                parseInt(shopId)
             )
             res.status(200).send(data)
         }

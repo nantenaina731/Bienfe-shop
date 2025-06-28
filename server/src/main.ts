@@ -22,7 +22,7 @@ app.use(fileUpload({
 app.use(compression());
 
 app.get('/',(req:Request, res:Response) => {
-  res.send('Hello from Bienfe-chop API')
+  res.send('Hello from Bienfe-shop API')
 })
 
 app.use('/api/users', userRoute)
