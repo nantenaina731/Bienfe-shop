@@ -14,7 +14,7 @@ interface menuPops {
   setActivePage: Dispatch<SetStateAction<productPage>>;
 }
 
-const pages = ["Vente de produit", "Gestion de produit"];
+const pages = ["Vente de produit", "Gestion de produit","Chiffre d'affaire"];
 
 const Menus = ({ activePage, setActivePage }: menuPops) => {
   const theme = useTheme();
