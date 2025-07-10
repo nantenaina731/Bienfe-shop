@@ -15,6 +15,7 @@ import Menus from "./Menus/Menus";
 import { productPage } from "@/types/types";
 import Gestion from "./Gestion/Gestion";
 import ShowModify from "./modify/ShowModify";
+import ChiffreAffaire from "./chiffre d'affaire/chiffreAffaire";
 
 interface props {
   setSuccess: (value: boolean) => void;
@@ -65,13 +66,13 @@ const Carts = ({ setSuccess, shopId }: props) => {
         year: selectedYear,
         shopId: shopId,
       });
-      if (response) {
-        const res = response.data;
-        setData(res); // on ne calcule plus le total ici
-      }
+      // EXTRACTION CORRECTE DU TABLEAU DE VENTES
+      const ventes = response.data?.data || [];
+      setData(ventes);
     } catch (error) {
       console.log(error);
       setErrorMessage("Erreur de récupération des données");
+      setData([]); // vide pour éviter crash
     } finally {
       setLoading(false);
     }
@@ -81,9 +82,10 @@ const Carts = ({ setSuccess, shopId }: props) => {
     getData();
   }, [selectedMonth, selectedDate, selectedYear, shopId]);
 
-  // Filtrer et regrouper les ventes par produit
+  // On filtre par boutique pour plus de sécurité
   const filteredData = data.filter((item: any) => item.shopId === shopId);
 
+  // Regroupement par produit
   const groupedData = filteredData.reduce((acc: any[], item: any) => {
     const existing = acc.find(i => i.product_id === item.product_id);
     if (existing) {
@@ -95,7 +97,6 @@ const Carts = ({ setSuccess, shopId }: props) => {
     return acc;
   }, []);
 
-  // Calcul du total
   const total = groupedData.reduce((sum, item) => sum + item.totalAmount, 0);
 
   const show = (id: any) => {
@@ -108,8 +109,11 @@ const Carts = ({ setSuccess, shopId }: props) => {
   return (
     <>
       <Layout fullBody={true} barDark={true} isScroll={true}>
-        <View style={{ padding: 10, marginTop: 15 }}>
-          {isAdmin && <Menus activePage={activePage} setActivePage={setActivePage} />}
+        <View style={{ padding: 16, marginTop: 16 }}>
+          {isAdmin && (
+            <Menus activePage={activePage} setActivePage={setActivePage} />
+          )}
+
           {activePage === "Vente de produit" ? (
             <>
               <AddCard
@@ -161,8 +165,10 @@ const Carts = ({ setSuccess, shopId }: props) => {
                 {loading && <Loading />}
               </View>
             </>
-          ) : (
+          ) : activePage === "Gestion de produit" ? (
             <Gestion setSuccess={setVisible} shopId={shopId!} />
+          ) : (
+            <ChiffreAffaire shopId={shopId!} />
           )}
         </View>
       </Layout>

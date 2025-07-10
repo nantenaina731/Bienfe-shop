@@ -11,4 +11,4 @@ export interface ShopInfo {
 
 export type profilePage = "Mon compte" | "Vendeur" | "Administrateurs";
 
-export type productPage = "Vente de produit" | "Gestion de produit";
+export type productPage = "Vente de produit" | "Gestion de produit"|"Chiffre d'affaire";

@@ -14,7 +14,7 @@ interface menuPops {
   setActivePage: Dispatch<SetStateAction<productPage>>;
 }
 
-const pages = ["Vente de produit", "Gestion de produit"];
+const pages = ["Vente de produit", "Gestion de produit","Chiffre d'affaire"];
 
 const Menus = ({ activePage, setActivePage }: menuPops) => {
   const theme = useTheme();
@@ -55,7 +55,8 @@ const createStyles = (theme: any, active?: boolean) =>
       display: "flex",
       flexDirection: "row",
       gap: 10,
-      marginBottom: 10
+      marginBottom: 10,
+      flexWrap:"wrap"
     },
     textLabel: {
       color: "white",
@@ -63,7 +64,7 @@ const createStyles = (theme: any, active?: boolean) =>
     },
     badge: {
       color: active? "white": "#64B244" ,
-      padding: 5,
+      padding:6,
       borderWidth: 1,
       backgroundColor: active ? "#64B244" : "white",
       paddingTop: 5,
