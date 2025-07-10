@@ -30,6 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.0",
     "nodemon": "^3.1.9",
+    "papaparse": "^5.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
@@ -42,6 +43,7 @@
     "@types/express-fileupload": "^1.5.1",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.14.0",
+    "@types/papaparse": "^5.3.16",
     "prisma": "^6.9.0"
   }
 }

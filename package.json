@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "expo-document-picker": "^13.1.6",
-    "papaparse": "^5.5.3"
-  },
-  "devDependencies": {
-    "@types/papaparse": "^5.3.16"
-  }
-}

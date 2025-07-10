@@ -11,7 +11,6 @@ const model = {
       orderBy: { id: 'desc' }
     });
   },
-
   getOne: async (id: number) => {
     return await prisma.products.findUnique({ where: { id } });
   },
@@ -98,7 +97,7 @@ const model = {
       Papa.parse(file, {
         header: true,
         skipEmptyLines: true,
-        complete: async (results) => {
+        complete: async (results:any) => {
           try {
             const data = results.data as {
               name: string;
