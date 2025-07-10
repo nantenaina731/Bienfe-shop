@@ -4,15 +4,16 @@ import ErrorView from "@/common/ErrorView/ErrorView";
 import useHttps from "@/services/useHttps";
 import useToken from "@/services/useToken";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import { Modal, Portal, Text, useTheme } from "react-native-paper";
-
+import * as DocumentPicker from "expo-document-picker";
+import Papa from "papaparse";
 interface props {
   visible: boolean;
   setVisible: any;
   setSuccess: any;
   getData: any;
-  shopId:number;
+  shopId: number;
 }
 
 const initialData = {
@@ -21,7 +22,7 @@ const initialData = {
   quantity: "",
 };
 
-const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) => {
+const AddModal = ({ setSuccess, visible, setVisible, getData, shopId }: props) => {
   const hideModal = () => setVisible(false);
   const theme = useTheme();
   const { primary } = theme.colors;
@@ -47,10 +48,10 @@ const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) =>
       try {
         setSendLoading(true);
         const toSend: any = {
-        ...data,
-          shopId
+          ...data,
+          shopId,
         };
-        
+
         const response = await https.post("/products", toSend);
         if (response) {
           setVisible(false);
@@ -66,14 +67,56 @@ const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) =>
           setErrorMessage("Request error");
           console.log("Error request:", error.request);
         } else {
-          setErrorMessage("Une érreur c'est produite");
+          setErrorMessage("Une erreur s'est produite");
           console.log("Error message:", error.response);
         }
       } finally {
         setSendLoading(false);
       }
     } else {
-      setErrorMessage("Compléter les champs");
+      setErrorMessage("Complétez tous les champs");
+    }
+  };
+
+  const handleImportCsv = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: "text/csv",
+      });
+
+      if (result.canceled) return;
+
+      const fileUri = result.assets[0].uri;
+      const response = await fetch(fileUri);
+      const csvText = await response.text();
+
+      const parsed = Papa.parse(csvText, {
+        header: true,
+        skipEmptyLines: true,
+      });
+
+      const products = parsed.data.map((row: any) => ({
+        name: row.name,
+        price: row.price,
+        quantity: row.quantity,
+        shopId,
+      }));
+
+      setSendLoading(true);
+      const res = await https.post("/products/import", { products });
+      setSendLoading(false);
+
+      if (res.status === 200) {
+        setVisible(false);
+        setSuccess(true);
+        getData();
+      } else {
+        Alert.alert("Erreur", "Importation échouée.");
+      }
+    } catch (error) {
+      setSendLoading(false);
+      console.error("Erreur CSV :", error);
+      Alert.alert("Erreur", "Le fichier est invalide ou corrompu.");
     }
   };
 
@@ -84,10 +127,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) =>
         onDismiss={hideModal}
         contentContainerStyle={styles.container}
       >
-        <Text
-          style={{ color: "#000", fontWeight: "bold" }}
-          variant="titleMedium"
-        >
+        <Text style={{ color: "#000", fontWeight: "bold" }} variant="titleMedium">
           Nom
         </Text>
         <CustomInput
@@ -100,10 +140,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) =>
           mt={0}
         />
 
-        <Text
-          style={{ color: "#000", fontWeight: "bold" }}
-          variant="titleMedium"
-        >
+        <Text style={{ color: "#000", fontWeight: "bold" }} variant="titleMedium">
           Prix Unitaire
         </Text>
         <CustomInput
@@ -117,10 +154,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) =>
           mt={0}
         />
 
-        <Text
-          style={{ color: "#000", fontWeight: "bold" }}
-          variant="titleMedium"
-        >
+        <Text style={{ color: "#000", fontWeight: "bold" }} variant="titleMedium">
           Quantité en stock
         </Text>
         <CustomInput
@@ -133,6 +167,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) =>
           fontSize={14}
           mt={0}
         />
+
         <CustomButton
           mt={15}
           rounded={false}
@@ -141,6 +176,16 @@ const AddModal = ({ setSuccess, visible, setVisible, getData,shopId }: props) =>
           onPress={handleSubmit}
           height={45}
         />
+
+        {/* ✅ Bouton pour importer depuis un CSV */}
+        <CustomButton
+          mt={10}
+          rounded={false}
+          text="Importer depuis CSV"
+          onPress={handleImportCsv}
+          height={45}
+        />
+
         {errorMessage && <ErrorView errorMessage={errorMessage} />}
       </Modal>
     </Portal>
