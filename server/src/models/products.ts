@@ -91,8 +91,6 @@ const model = {
       data: { isDelete: true }
     });
   },
-
-  // ✅ Nouvelle méthode d'importation CSV
   importFromCSV: async (filePath: string, shopId: number) => {
     return new Promise((resolve, reject) => {
       const file = fs.readFileSync(filePath, 'utf8');

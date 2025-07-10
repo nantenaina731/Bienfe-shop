@@ -1,6 +1,5 @@
 import { Response, Request } from "express";
 import model from "../models/products";
-import { parse } from "path";
 import fs from "fs";
 import path from "path";
 
@@ -33,7 +32,9 @@ const controller = {
           id: data.id,
           actualQty: data.quantity,
         });
-      } else res.status(200).send([]);
+      } else {
+        res.status(200).send([]);
+      }
     } catch (error: any) {
       console.log(error);
       res.status(500).send(error.message);
@@ -107,7 +108,8 @@ const controller = {
       const { shopId } = req.body;
 
       if (!file || !shopId) {
-        return res.status(400).send("Fichier ou shopId manquant");
+        res.status(400).send("Fichier ou shopId manquant");
+        return;
       }
 
       const fullPath = path.join(__dirname, "../../", file.path);
