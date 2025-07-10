@@ -115,7 +115,7 @@ const controller = {
       const fullPath = path.join(__dirname, "../../", file.path);
       const result = await model.importFromCSV(fullPath, parseInt(shopId));
 
-      fs.unlinkSync(fullPath); // Supprimer le fichier temporaire après lecture
+      fs.unlinkSync(fullPath);
 
       res.status(200).send({
         message: "Import réussi",
