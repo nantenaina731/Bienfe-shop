@@ -3,7 +3,6 @@ import fs from 'fs';
 import Papa from 'papaparse';
 
 const prisma = new PrismaClient();
-
 const model = {
   getAll: async () => {
     return await prisma.products.findMany({

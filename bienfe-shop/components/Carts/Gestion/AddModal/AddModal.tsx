@@ -6,7 +6,7 @@ import useToken from "@/services/useToken";
 import React, { useState } from "react";
 import { StyleSheet, Alert } from "react-native";
 import { Modal, Portal, Text, useTheme } from "react-native-paper";
-import * as DocumentPicker from "expo-document-picker";
+//import * as DocumentPicker from "expo-document-picker";
 import Papa from "papaparse";
 interface props {
   visible: boolean;
@@ -78,7 +78,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData, shopId }: props) =
     }
   };
 
-  const handleImportCsv = async () => {
+ /* const handleImportCsv = async () => {
     try {
       const result = await DocumentPicker.getDocumentAsync({
         type: "text/csv",
@@ -118,8 +118,9 @@ const AddModal = ({ setSuccess, visible, setVisible, getData, shopId }: props) =
       console.error("Erreur CSV :", error);
       Alert.alert("Erreur", "Le fichier est invalide ou corrompu.");
     }
+    
   };
-
+*/
   return (
     <Portal>
       <Modal
@@ -176,16 +177,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData, shopId }: props) =
           onPress={handleSubmit}
           height={45}
         />
-
-        {/* ✅ Bouton pour importer depuis un CSV */}
-        <CustomButton
-          mt={10}
-          rounded={false}
-          text="Importer depuis CSV"
-          onPress={handleImportCsv}
-          height={45}
-        />
-
         {errorMessage && <ErrorView errorMessage={errorMessage} />}
       </Modal>
     </Portal>
