@@ -64,20 +64,42 @@ const controller = {
     },
     filter: async (req: Request, res: Response) => {
         let { day, month, year, shopId } = req.body;
-    
+      
         try {
-            const startOfDay = day == "Tout" ? new Date(year, month, 1, 0, 0, 0) : new Date(year, month, day, 0, 0, 0);
-            const endOfDay = day == "Tout" ? new Date(year, month + 1, 1, 0, 0, 0) : new Date(year, month, day + 1, 0, 0, 0);
-    
-            let data = await model.filter(startOfDay, endOfDay, shopId);
-    
-            res.status(200).send(data);
+          const startOfDay = day == "Tout"
+            ? new Date(year, month, 1, 0, 0, 0)
+            : new Date(year, month, day, 0, 0, 0);
+          const endOfDay = day == "Tout"
+            ? new Date(year, month + 1, 1, 0, 0, 0)
+            : new Date(year, month, day + 1, 0, 0, 0);
+      
+          const data = await model.filter(startOfDay, endOfDay, shopId);
+      
+          // Calculer le chiffre d'affaire total par boutique
+          const chiffreAffaireParBoutique = data.reduce((acc: any[], item: any) => {
+            const found = acc.find((el) => el.shopId === item.shopId);
+            if (found) {
+              found.total += item.totalAmount;
+            } else {
+              acc.push({
+                shopId: item.shopId,
+                shopName: item.shopName || `Boutique ${item.shopId}`, // au cas où
+                total: item.totalAmount,
+              });
+            }
+            return acc;
+          }, []);
+      
+          res.status(200).send({
+            data,
+            chiffreAffaireParBoutique,
+          });
         } catch (error: any) {
-            console.log(error);
-            res.status(500).send(error);
+          console.log(error);
+          res.status(500).send(error);
         }
-    },
-    update: async (req: Request, res: Response) => {
+      },
+       update: async (req: Request, res: Response) => {
         let { 
             createdAt,
             quantity,
