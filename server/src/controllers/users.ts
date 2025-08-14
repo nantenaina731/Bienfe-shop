@@ -113,7 +113,7 @@ const controller = {
         }
     },
     create: async (req: Request, res: Response) => {
-        let { name, last_name, email,shop_name, password, type ,} = req.body
+        let { name, last_name, email,shop_name, password, type } = req.body
 
         try {
             let find = await model.getByEmail(email)

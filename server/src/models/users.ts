@@ -71,6 +71,7 @@ const model = {
                 shop_name, 
                 email,
                 password,
+                type,
                               },
         })
 
