@@ -127,7 +127,7 @@ const controller = {
                         res.status(403).send("Registration failed")
                     }
                     else {
-                        let user = await model.create(name, last_name, email,shop_name, type, hash)
+                        let user = await model.create(name, last_name, email,shop_name, hash,type)
                         if(user) {
                             let token = generateToken(user.id, user.email)
                             let response  = {
