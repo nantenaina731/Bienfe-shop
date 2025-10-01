@@ -104,7 +104,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="name"
-          label="Nom..."
+          label={"Nom..."}
           value={data.name}
           handleChange={handleChange}
           height={45}
@@ -135,7 +135,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         <CustomInput
           name="email"
           value={data.email}
-        
           label={"Email..."}
           handleChange={handleChange}
           height={45}
@@ -146,11 +145,11 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Nouveau mot de passe{" "}
+          Nouveau mot de passe {" "}
         </Text>
         <CustomInput
           name="password"
-        
+          type="text"
           label={"Mot de passe"}
           handleChange={handleChange}
           height={45}
@@ -165,6 +164,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="confirm_password"
+          type="text"
           label={"Confirmation"}
           handleChange={handleChange}
           height={45}
@@ -184,7 +184,6 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
     </Portal>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",

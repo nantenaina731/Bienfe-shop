@@ -10,7 +10,7 @@ interface props {
   editable?: boolean;
   height?: number;
   fontSize?: number;
-  type?: KeyboardTypeOptions;
+  type?: any;
   mt?: number;
 
   // Props optionnelles pour champ mot de passe

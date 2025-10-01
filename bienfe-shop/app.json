@@ -32,7 +32,9 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-build-properties",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
