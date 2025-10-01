@@ -5,7 +5,7 @@ import { TextInput, useTheme } from "react-native-paper";
 interface props {
   label: string;
   name: string;
-  value?: string;
+  value?: string | undefined;
   handleChange: (name: string, value: string) => void;
   editable?: boolean;
   height?: number;
@@ -21,15 +21,14 @@ interface props {
 
 const CustomInput = ({
   label,
-  name,
-  value = "",
+  name="",
+  value = undefined,
   handleChange,
   editable = true,
   height,
   fontSize,
   type = "default",
   mt,
-  secureTextEntry,
   rightIcon,
   onIconPress
 }: props) => {
@@ -54,7 +53,7 @@ const CustomInput = ({
 
   return (
     <TextInput
-      secureTextEntry={secureTextEntry}
+      secureTextEntry={name == "password" || name == "confirm_password"}
       placeholder={label}
       style={styles.input}
       theme={{

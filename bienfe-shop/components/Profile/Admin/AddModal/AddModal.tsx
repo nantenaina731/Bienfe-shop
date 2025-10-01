@@ -145,11 +145,11 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
           style={{ color: "#000", fontWeight: "bold" }}
           variant="titleMedium"
         >
-          Nouveau mot de passe {" "}
+          Nouveau mot de passe{" "}
         </Text>
         <CustomInput
           name="password"
-          type="text"
+          type={"text"}
           label={"Mot de passe"}
           handleChange={handleChange}
           height={45}
@@ -164,7 +164,7 @@ const AddModal = ({ setSuccess, visible, setVisible, getData }: props) => {
         </Text>
         <CustomInput
           name="confirm_password"
-          type="text"
+          type={"text"}
           label={"Confirmation"}
           handleChange={handleChange}
           height={45}
