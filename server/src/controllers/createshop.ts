@@ -49,7 +49,7 @@ const controller = {
       
           const data = await model.create(name, logo);
       
-          // ✅ Ne pas faire "return"
+        
           res.status(201).json({
             message: "Boutique créée avec succès",
             data
