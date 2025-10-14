@@ -5,11 +5,10 @@ import useToken from "@/services/useToken";
 import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { DataTable, Text, useTheme } from "react-native-paper";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import AddModal from "./AddModal/AddModal";
 import ShowModal from "./ShowModal/ShowModal";
 import ErrorView from "@/common/ErrorView/ErrorView";
-
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 interface props {
   setSuccess: any;
 }
@@ -65,7 +64,7 @@ const Admin = ({ setSuccess }: props) => {
           Liste des administrateurs
         </Text>
         <Pressable style={styles.add} onPress={() => setAddModal(true)}>
-          <AntDesign name="adduser" size={20} color={"white"} />
+        <MaterialIcons name="person-add" size={20} color={"white"}/>
         </Pressable>
       </View>
       <DataTable>
