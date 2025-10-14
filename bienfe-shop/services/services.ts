@@ -63,10 +63,8 @@ function formatMonth(date: string) {
     "Déc",
   ];
   let month = parseInt(date.split("-")[1]) - 1;
-
   return String(months[month]) + "/" + date.split("-")[0].slice(2, 4);
 }
-
 function formatDateMinim(date: Date) {
   const months = [
     "01",
@@ -89,7 +87,6 @@ function formatDateMinim(date: Date) {
 
   return actualDate + "/" + month + "/" + year;
 }
-
 const getRole = (role: string) => {
   switch (role) {
     case "admin":

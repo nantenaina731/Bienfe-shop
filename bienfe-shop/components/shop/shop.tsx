@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ScrollView} from "react-native";
 import { Text } from "react-native-paper";
 import Loading from "@/common/Loading";
 import ShopCard from "../Home/shopCard/shopCard";
@@ -13,12 +13,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 const Shop = ({ setSuccess }: { setSuccess: any }) => {
   const [loading, setLoading] = React.useState(false);
   const [shops, setShops] = React.useState([] as any[]);
-  const [selectedShopId, setSelectedShopId] = useState<number | null>(null); // ← nouveau
+  const [selectedShopId, setSelectedShopId] = useState<number | null>(null);
   const { https } = useHttps();
 
   const getData = async () => {
     try {
-      
       setLoading(true);
       const response = await https.get("/createshop");
       if (response?.data) {
@@ -29,7 +28,6 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
     } finally {
       setLoading(false);
     }
-    
   };
 
   useFocusEffect(
@@ -37,7 +35,6 @@ const Shop = ({ setSuccess }: { setSuccess: any }) => {
       getData();
     }, [])
   );
-
   const styles = StyleSheet.create({
     container: {
       flex: 1,
