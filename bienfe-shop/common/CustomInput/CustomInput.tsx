@@ -12,7 +12,6 @@ interface props {
   fontSize?: number;
   type?: any;
   mt?: number;
-
   // Props optionnelles pour champ mot de passe
   secureTextEntry?: boolean;
   rightIcon?: string;
@@ -30,6 +29,7 @@ const CustomInput = ({
   type = "default",
   mt,
   rightIcon,
+  secureTextEntry=false,
   onIconPress
 }: props) => {
   const theme = useTheme();
@@ -50,10 +50,14 @@ const CustomInput = ({
       paddingHorizontal: 10,
     },
   });
-
   return (
     <TextInput
-      secureTextEntry={name == "password" || name == "confirm_password"}
+    secureTextEntry={
+      (name === "password" || name === "confirm_password")
+        ? secureTextEntry ?? true
+        : secureTextEntry
+    }
+    
       placeholder={label}
       style={styles.input}
       theme={{
@@ -70,8 +74,8 @@ const CustomInput = ({
       onBlur={() => setIsFocus(false)}
       onChangeText={(text) => handleChange(name, text)}
       right={
-        rightIcon ? (
-          <TextInput.Icon icon={rightIcon} onPress={onIconPress} />
+        rightIcon?(
+          <TextInput.Icon icon={rightIcon} onPress={onIconPress}  />
         ) : undefined
       }
     />
