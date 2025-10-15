@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const BaseApi =  "http://bienfe-shop-production.up.railway.app/api" 
-const BaseUrl = "http://bienfe-shop-production.up.railway.app"  
-
+const BaseApi = "https://bienfe-shop-production.up.railway.app/api"
+const BaseUrl = "https://bienfe-shop-production.up.railway.app"  
 const useHttps = () => {
   const user = useSelector((state: any) => state.user.value)
 
